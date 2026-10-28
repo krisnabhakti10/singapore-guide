@@ -806,20 +806,162 @@
     .map-preview-wrap {
       position: relative;
       width: 100%;
-      height: 260px;
-      background: #0d1410;
+      height: 300px;
+      background: #ffffff;
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 10px;
       overflow: hidden;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .map-preview-img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       display: block;
+      padding: 6px;
+    }
+
+    /* Must Visit Section */
+    .mv-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    @media (min-width: 600px) {
+      .mv-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .mv-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .mv-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .mv-card-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 170px;
+      background: var(--panel-dark);
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .mv-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+      display: block;
+    }
+
+    .mv-card-img-wrap:hover .mv-card-img {
+      transform: scale(1.05);
+    }
+
+    .mv-card-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(17, 23, 20, 0.9);
+      color: #efeee8;
+      border: 1px solid var(--line);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      backdrop-filter: blur(8px);
+    }
+
+    .mv-card-body {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .mv-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .mv-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .mv-tag.viral { background: rgba(224, 86, 36, 0.2); color: #ff8a65; border: 1px solid rgba(224, 86, 36, 0.4); }
+    .mv-tag.culinary { background: rgba(250, 158, 13, 0.2); color: #ffb74d; border: 1px solid rgba(250, 158, 13, 0.4); }
+    .mv-tag.heritage { background: rgba(144, 22, 178, 0.2); color: #ce93d8; border: 1px solid rgba(144, 22, 178, 0.4); }
+    .mv-tag.modern { background: rgba(0, 94, 196, 0.2); color: #90caf9; border: 1px solid rgba(0, 94, 196, 0.4); }
+    .mv-tag.free { background: rgba(0, 150, 64, 0.2); color: #81c784; border: 1px solid rgba(0, 150, 64, 0.4); }
+    .mv-tag.match { background: rgba(215, 237, 156, 0.15); color: var(--accent); border: 1px solid rgba(215, 237, 156, 0.3); }
+
+    .mv-title {
+      font-family: 'Manrope', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #efeee8;
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+
+    .mv-desc {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 12px;
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .mv-meta-row {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 11px;
+      color: #cbd5cb;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 8px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .mv-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mv-actions {
+      display: flex;
+      gap: 8px;
     }
 
     /* POPUP MODAL (DESTINATION PHOTO & INFO) */
@@ -1337,6 +1479,7 @@
     <!-- Sub Navigation Tabs -->
     <nav class="tab-bar">
       <button class="tab-item active" onclick="setTab('schedule', this)">Rundown 3D2N</button>
+      <button class="tab-item" onclick="setTab('mustvisit', this)">Spot Wajib & Hits ⭐</button>
       <button class="tab-item" onclick="setTab('transit', this)">Peta Transit & Jadwal</button>
       <button class="tab-item" onclick="setTab('packing', this)">Checklist & Bagasi</button>
       <button class="tab-item" onclick="setTab('routes', this)">Rute Lari & Alam</button>
@@ -1417,6 +1560,7 @@
             <div class="card-actions">
               <button class="btn-place-popup" onclick="openPlaceModal('merlion')">Merlion (Sore)</button>
               <button class="btn-place-popup" onclick="openPlaceModal('spectra')">Spectra (Malam)</button>
+              <button class="btn-place-popup" onclick="openPlaceModal('helix')">Helix Bridge</button>
               <span class="card-type">TOUR RESMI</span>
               <button class="btn-done-toggle" onclick="toggleRundownDone('card-d1-5')">Selesai</button>
             </div>
@@ -1431,6 +1575,8 @@
             <span class="card-time">20:30 - SELESAI SGT</span>
             <div class="card-actions">
               <button class="btn-place-popup" onclick="openPlaceModal('emerald')">Emerald Hill</button>
+              <button class="btn-place-popup" onclick="openPlaceModal('police')">Gedung Pelangi</button>
+              <button class="btn-place-popup" onclick="openPlaceModal('clarkequay')">Clarke Quay</button>
               <span class="card-type free">FREE TIME MALAM</span>
               <button class="btn-done-toggle" onclick="toggleRundownDone('card-d1-6')">Selesai</button>
             </div>
@@ -1545,7 +1691,9 @@
           <div class="card-top">
             <span class="card-time">12:00 - 13:00 SGT</span>
             <div class="card-actions">
-              <button class="btn-place-popup" onclick="openPlaceModal('sultan')">Masjid Sultan (Siang)</button>
+              <button class="btn-place-popup" onclick="openPlaceModal('sultan')">Masjid Sultan</button>
+              <button class="btn-place-popup" onclick="openPlaceModal('hajilane')">Haji Lane</button>
+              <button class="btn-place-popup" onclick="openPlaceModal('zamzam')">Zam Zam (1908)</button>
               <span class="card-type">IBADAH</span>
               <button class="btn-done-toggle" onclick="toggleRundownDone('card-d2-3')">Selesai</button>
             </div>
@@ -1711,7 +1859,279 @@
     </section>
 
     <!-- ==================== TAB 2: PETA TRANSIT & JADWAL ==================== -->
-    <section id="pane-transit" class="tab-pane">
+        <!-- ==================== TAB 2: MUST-VISIT PLACES (INTERNET TRAVELER PICKS) ==================== -->
+    <section id="pane-mustvisit" class="tab-pane">
+      <div style="margin-bottom: 20px;">
+        <span class="badge-stp" style="margin-bottom: 6px; display: inline-block;">CURATED TRAVEL GUIDE</span>
+        <h2 style="font-family: 'Manrope', sans-serif; font-size: 20px; font-weight: 800; margin-bottom: 6px;">Spot Wajib & Hits Singapura</h2>
+        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">
+          Daftar destinasi paling populer, spot foto viral TikTok/Instagram, dan kuliner legendaris yang wajib dikunjungi berdasarkan kurasi <em>itinerary 3D2N</em> para traveler dunia di internet. Sangat pas untuk mengisi waktu luang (Free Time) Anda di Singapura!
+        </p>
+      </div>
+
+      <!-- CATEGORY FILTER BUTTONS -->
+      <div class="filter-row" style="margin-bottom: 16px;">
+        <div class="day-group" style="flex-wrap: wrap;">
+          <button type="button" class="btn-filter btn-filter-mv active" onclick="filterMustVisit('all', this)">Semua (10)</button>
+          <button type="button" class="btn-filter btn-filter-mv" onclick="filterMustVisit('viral', this)">📸 Spot Foto Viral</button>
+          <button type="button" class="btn-filter btn-filter-mv" onclick="filterMustVisit('culinary', this)">🍜 Kuliner Legendaris</button>
+          <button type="button" class="btn-filter btn-filter-mv" onclick="filterMustVisit('heritage', this)">🏛️ Budaya & Heritage</button>
+          <button type="button" class="btn-filter btn-filter-mv" onclick="filterMustVisit('modern', this)">🌿 Modern Landmark</button>
+        </div>
+      </div>
+
+      <div class="mv-grid">
+
+        <!-- CARD 1: OLD HILL STREET POLICE STATION -->
+        <div class="mv-card" data-category="viral">
+          <div class="mv-card-img-wrap" onclick="openPlaceModal('police')">
+            <img src="assets/police_station.jpg" alt="Old Hill Street Police Station" class="mv-card-img" onerror="this.src='https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=80'">
+            <span class="mv-card-badge">📸 927 RAINBOW WINDOWS</span>
+          </div>
+          <div class="mv-card-body">
+            <div class="mv-tags">
+              <span class="mv-tag viral">Spot Foto Viral</span>
+              <span class="mv-tag free">Gratis</span>
+              <span class="mv-tag match">💡 Free Time Day 1 Malam</span>
+            </div>
+            <h3 class="mv-title">Old Hill Street Police Station</h3>
+            <p class="mv-desc">Bangunan bersejarah tahun 1934 dengan 927 daun jendela bergradasi warna-warni pelangi. Spot foto OOTD paling hits dan estetik di Singapura.</p>
+            <div class="mv-meta-row">
+              <div class="mv-meta-item">🚇 <strong>MRT:</strong> Clarke Quay (NE5) Exit E / Fort Canning (DT20)</div>
+              <div class="mv-meta-item">🕒 <strong>Waktu Terbaik:</strong> 08:30 - 10:30 (Pagi) atau 16:30 - 18:00 (Sore)</div>
+            </div>
+            <div class="mv-actions">
+              <button type="button" class="btn primary small" style="flex: 1;" onclick="openPlaceModal('police')">Detail & Foto</button>
+              <a href="https://www.google.com/maps/search/Old+Hill+Street+Police+Station" target="_blank" class="btn outline small">Google Maps</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2: HAJI LANE -->
+        <div class="mv-card" data-category="viral">
+          <div class="mv-card-img-wrap" onclick="openPlaceModal('hajilane')">
+            <img src="assets/haji_lane.jpg" alt="Haji Lane" class="mv-card-img" onerror="this.src='https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=1200&q=80'">
+            <span class="mv-card-badge">🎨 MURAL STREET ART</span>
+          </div>
+          <div class="mv-card-body">
+            <div class="mv-tags">
+              <span class="mv-tag viral">Spot Viral</span>
+              <span class="mv-tag heritage">Kampong Gelam</span>
+              <span class="mv-tag match">💡 Gandeng Day 2 Masjid Sultan</span>
+            </div>
+            <h3 class="mv-title">Haji Lane (Lorong Seni & Kafe Indie)</h3>
+            <p class="mv-desc">Lorong sempit artistik penuh mural grafiti internasional, butik pakaian desainer lokal, toko kamera jadul, dan kafe hipster. Hanya 2 menit jalan kaki dari Masjid Sultan.</p>
+            <div class="mv-meta-row">
+              <div class="mv-meta-item">🚇 <strong>MRT:</strong> Bugis (EW12/DT14) Exit B</div>
+              <div class="mv-meta-item">🕒 <strong>Waktu Terbaik:</strong> 15:00 - 19:00 (Sore hari)</div>
+            </div>
+            <div class="mv-actions">
+              <button type="button" class="btn primary small" style="flex: 1;" onclick="openPlaceModal('hajilane')">Detail & Foto</button>
+              <a href="https://www.google.com/maps/search/Haji+Lane+Singapore" target="_blank" class="btn outline small">Google Maps</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3: THE HELIX BRIDGE -->
+        <div class="mv-card" data-category="modern">
+          <div class="mv-card-img-wrap" onclick="openPlaceModal('helix')">
+            <img src="assets/helix_bridge.jpg" alt="The Helix Bridge" class="mv-card-img" onerror="this.src='https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?auto=format&fit=crop&w=1200&q=80'">
+            <span class="mv-card-badge">🧬 DNA SPIRAL ARCHITECTURE</span>
+          </div>
+          <div class="mv-card-body">
+            <div class="mv-tags">
+              <span class="mv-tag modern">Arsitektur Futuristik</span>
+              <span class="mv-tag free">Gratis</span>
+              <span class="mv-tag match">💡 Sambung Tour Day 1 Spectra</span>
+            </div>
+            <h3 class="mv-title">The Helix Bridge Marina Bay</h3>
+            <p class="mv-desc">Jembatan pejalan kaki spiral ganda DNA melengkung pertama di dunia. Menyajikan 4 pod viewing balkon kaca menjorok ke teluk untuk panorama Marina Bay Sands spektakuler.</p>
+            <div class="mv-meta-row">
+              <div class="mv-meta-item">🚇 <strong>MRT:</strong> Bayfront (DT16/CE1) / Promenade (CC4/DT15)</div>
+              <div class="mv-meta-item">🕒 <strong>Waktu Terbaik:</strong> 19:30 - 22:00 (Malam hari dengan lampu LED)</div>
+            </div>
+            <div class="mv-actions">
+              <button type="button" class="btn primary small" style="flex: 1;" onclick="openPlaceModal('helix')">Detail & Foto</button>
+              <a href="https://www.google.com/maps/search/The+Helix+Bridge+Singapore" target="_blank" class="btn outline small">Google Maps</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4: BUDDHA TOOTH RELIC TEMPLE & CHINATOWN -->
+        <div class="mv-card" data-category="heritage">
+          <div class="mv-card-img-wrap" onclick="openPlaceModal('chinatown')">
+            <img src="assets/chinatown.jpg" alt="Chinatown Temple" class="mv-card-img" onerror="this.src='https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80'">
+            <span class="mv-card-badge">🏮 TANG DYNASTY HERITAGE</span>
+          </div>
+          <div class="mv-card-body">
+            <div class="mv-tags">
+              <span class="mv-tag heritage">Budaya & Sejarah</span>
+              <span class="mv-tag free">Gratis Masuk</span>
+              <span class="mv-tag match">💡 Free Time Day 3 Pagi</span>
+            </div>
+            <h3 class="mv-title">Buddha Tooth Relic Temple & Chinatown</h3>
+            <p class="mv-desc">Kuil stupa emas 4 lantai bergaya arsitektur Dinasti Tang di tengah Chinatown. Di sekitarnya terdapat pasar jalanan Pagoda Street penuh lampion merah dan cenderamata khas.</p>
+            <div class="mv-meta-row">
+              <div class="mv-meta-item">🚇 <strong>MRT:</strong> Maxwell (TE18) Exit 1 / Chinatown (NE4/DT19)</div>
+              <div class="mv-meta-item">🕒 <strong>Waktu Terbaik:</strong> 09:00 - 14:00 (Pagi / Siang)</div>
+            </div>
+            <div class="mv-actions">
+              <button type="button" class="btn primary small" style="flex: 1;" onclick="openPlaceModal('chinatown')">Detail & Foto</button>
+              <a href="https://www.google.com/maps/search/Buddha+Tooth+Relic+Temple+Singapore" target="_blank" class="btn outline small">Google Maps</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 5: TIAN TIAN CHICKEN RICE & MAXWELL -->
+        <div class="mv-card" data-category="culinary">
+          <div class="mv-card-img-wrap" onclick="openPlaceModal('tiantian')">
+            <img src="assets/chinatown.jpg" alt="Maxwell Food Centre" class="mv-card-img" onerror="this.src='https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=80'">
+            <span class="mv-card-badge">🍗 MICHELIN BIB GOURMAND</span>
+          </div>
+          <div class="mv-card-body">
+            <div class="mv-tags">
+              <span class="mv-tag culinary">Kuliner Legendaris</span>
+              <span class="mv-tag match">💡 Pasangan Kuil Chinatown</span>
+            </div>
+            <h3 class="mv-title">Maxwell Hawker & Tian Tian Chicken Rice</h3>
+            <p class="mv-desc">Nasi ayam Hainan paling tersohor di dunia yang dipuji Anthony Bourdain. Nasi gurih berkaldu wangi disajikan dengan irisan ayam lembut juicy dan sambal jahe segar otentik.</p>
+            <div class="mv-meta-row">
+              <div class="mv-meta-item">🚇 <strong>MRT:</strong> Maxwell (TE18) Exit 1 (tepat di depan gerbang)</div>
+              <div class="mv-meta-item">🕒 <strong>Waktu Terbaik:</strong> 11:00 - 13:00 (Hindari jam puncak antrean)</div>
+            </div>
+            <div class="mv-actions">
+              <button type="button" class="btn primary small" style="flex: 1;" onclick="openPlaceModal('tiantian')">Detail & Info</button>
+              <a href="https://www.google.com/maps/search/Tian+Tian+Hainanese+Chicken+Rice+Maxwell" target="_blank" class="btn outline small">Google Maps</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 6: SINGAPORE ZAM ZAM -->
+        <div class="mv-card" data-category="culinary">
+          <div class="mv-card-img-wrap" onclick="openPlaceModal('zamzam')">
+            <img src="assets/sultan.jpg" alt="Zam Zam Restaurant" class="mv-card-img" onerror="this.src='https://images.unsplash.com/photo-1702085241329-2525b7b71cef?auto=format&fit=crop&w=1200&q=80'">
+            <span class="mv-card-badge">🥘 100% HALAL SEJAK 1908</span>
+          </div>
+          <div class="mv-card-body">
+            <div class="mv-tags">
+              <span class="mv-tag culinary">100% Halal</span>
+              <span class="mv-tag heritage">Sejak 1908</span>
+              <span class="mv-tag match">💡 Makan Siang Day 2 Rombongan</span>
+            </div>
+            <h3 class="mv-title">Singapore Zam Zam Restaurant (Murtabak)</h3>
+            <p class="mv-desc">Restoran India-Muslim legendaris berusia lebih dari 116 tahun tepat di seberang Masjid Sultan. Murtabak daging rusa, sapi, dan ayam tebal disiram kuah kari kental istimewa.</p>
+            <div class="mv-meta-row">
+              <div class="mv-meta-item">🚇 <strong>MRT:</strong> Bugis (DT14) atau Jalan Besar (DT22)</div>
+              <div class="mv-meta-item">🕒 <strong>Waktu Terbaik:</strong> 11:30 - 14:00 (Makan siang setelah Dzuhur)</div>
+            </div>
+            <div class="mv-actions">
+              <button type="button" class="btn primary small" style="flex: 1;" onclick="openPlaceModal('zamzam')">Detail & Info</button>
+              <a href="https://www.google.com/maps/search/Singapore+Zam+Zam" target="_blank" class="btn outline small">Google Maps</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 7: CLARKE QUAY & SINGAPORE RIVER -->
+        <div class="mv-card" data-category="heritage">
+          <div class="mv-card-img-wrap" onclick="openPlaceModal('clarkequay')">
+            <img src="assets/clarkequay.jpg" alt="Clarke Quay" class="mv-card-img" onerror="this.src='https://images.unsplash.com/photo-1565967511849-76a60a516170?auto=format&fit=crop&w=1200&q=80'">
+            <span class="mv-card-badge">⛵ DERMAGA TEPI SUNGAI</span>
+          </div>
+          <div class="mv-card-body">
+            <div class="mv-tags">
+              <span class="mv-tag heritage">Heritage Walk</span>
+              <span class="mv-tag free">Gratis</span>
+              <span class="mv-tag match">💡 Free Time Day 1 Malam</span>
+            </div>
+            <h3 class="mv-title">Clarke Quay & Singapore River Walk</h3>
+            <p class="mv-desc">Dermaga bersejarah tepi sungai dengan ruko-ruko pastel abad ke-19 beratap payung futuristik. Suasana malam sangat hidup dengan pantulan lampu neon warna-warni di air sungai.</p>
+            <div class="mv-meta-row">
+              <div class="mv-meta-item">🚇 <strong>MRT:</strong> Clarke Quay (NE5) Exit G / Fort Canning (DT20)</div>
+              <div class="mv-meta-item">🕒 <strong>Waktu Terbaik:</strong> 18:30 - 21:30 (Malam hari)</div>
+            </div>
+            <div class="mv-actions">
+              <button type="button" class="btn primary small" style="flex: 1;" onclick="openPlaceModal('clarkequay')">Detail & Foto</button>
+              <a href="https://www.google.com/maps/search/Clarke+Quay+Singapore" target="_blank" class="btn outline small">Google Maps</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 8: CLOUD FOREST GARDENS BY THE BAY -->
+        <div class="mv-card" data-category="modern">
+          <div class="mv-card-img-wrap" onclick="openPlaceModal('cloudforest')">
+            <img src="assets/cloudforest.jpg" alt="Cloud Forest" class="mv-card-img" onerror="this.src='https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1200&q=80'">
+            <span class="mv-card-badge">🏔️ AIR TERJUN INDOOR 35M</span>
+          </div>
+          <div class="mv-card-body">
+            <div class="mv-tags">
+              <span class="mv-tag modern">Modern Marvel</span>
+              <span class="mv-tag match">💡 Opsi Ekstra Day 2 Gardens</span>
+            </div>
+            <h3 class="mv-title">Cloud Forest & Flower Dome</h3>
+            <p class="mv-desc">Konservatori kaca raksasa dengan gunung buatan berkabut setinggi 35 meter yang ditumbuhi anggrek liar langka, air terjun dalam ruangan berhawa sejuk, dan jembatan kanopi melayang.</p>
+            <div class="mv-meta-row">
+              <div class="mv-meta-item">🚇 <strong>MRT:</strong> Bayfront (DT16/CE1) Exit B</div>
+              <div class="mv-meta-item">🕒 <strong>Waktu Terbaik:</strong> 09:00 - 15:00 (Pagi / Siang)</div>
+            </div>
+            <div class="mv-actions">
+              <button type="button" class="btn primary small" style="flex: 1;" onclick="openPlaceModal('cloudforest')">Detail & Foto</button>
+              <a href="https://www.google.com/maps/search/Cloud+Forest+Gardens+by+the+Bay" target="_blank" class="btn outline small">Google Maps</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 9: YA KUN KAYA TOAST SOMERSET -->
+        <div class="mv-card" data-category="culinary">
+          <div class="mv-card-img-wrap" onclick="openPlaceModal('yakun')">
+            <img src="assets/emerald.jpg" alt="Ya Kun Kaya Toast" class="mv-card-img" onerror="this.src='https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=80'">
+            <span class="mv-card-badge">☕ SARAPAN LEGENDARIS 1944</span>
+          </div>
+          <div class="mv-card-body">
+            <div class="mv-tags">
+              <span class="mv-tag culinary">Sarapan Lokal</span>
+              <span class="mv-tag match">💡 4 Menit Jalan dari Hotel</span>
+            </div>
+            <h3 class="mv-title">Ya Kun Kaya Toast (Sarapan Klasik)</h3>
+            <p class="mv-desc">Sarapan paling otentik warisan budaya Singapura: roti panggang srikaya mentega dingin gurih, 2 telur setengah matang berbumbu kecap hitam & lada, ditemani kopi hitam panas.</p>
+            <div class="mv-meta-row">
+              <div class="mv-meta-item">🚇 <strong>Lokasi:</strong> 313@Somerset (450m dari Hotel Chancellor)</div>
+              <div class="mv-meta-item">🕒 <strong>Waktu Terbaik:</strong> 07:00 - 09:30 (Pagi sebelum tour)</div>
+            </div>
+            <div class="mv-actions">
+              <button type="button" class="btn primary small" style="flex: 1;" onclick="openPlaceModal('yakun')">Detail & Info</button>
+              <a href="https://www.google.com/maps/search/Ya+Kun+Kaya+Toast+313+Somerset" target="_blank" class="btn outline small">Google Maps</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 10: MARINA BAY SANDS SKYPARK -->
+        <div class="mv-card" data-category="modern">
+          <div class="mv-card-img-wrap" onclick="openPlaceModal('skypark')">
+            <img src="assets/merlion.jpg" alt="SkyPark MBS" class="mv-card-img" onerror="this.src='https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1200&q=80'">
+            <span class="mv-card-badge">🏙️ OBSERVATION DECK LT. 56</span>
+          </div>
+          <div class="mv-card-body">
+            <div class="mv-tags">
+              <span class="mv-tag modern">Panorama 360°</span>
+              <span class="mv-tag match">💡 Senja Day 1 atau Day 2</span>
+            </div>
+            <h3 class="mv-title">MBS SkyPark Observation Deck</h3>
+            <p class="mv-desc">Dek observasi terbuka di ketinggian 200 meter di lantai 56 menara kapal Marina Bay Sands. Menawarkan pandangan 360 derajat seluruh teluk Singapura hingga pulau-pulau di Kepulauan Riau.</p>
+            <div class="mv-meta-row">
+              <div class="mv-meta-item">🚇 <strong>MRT:</strong> Bayfront (DT16/CE1) Exit B (Tower 3)</div>
+              <div class="mv-meta-item">🕒 <strong>Waktu Terbaik:</strong> 17:30 - 18:45 (Golden Hour Senja)</div>
+            </div>
+            <div class="mv-actions">
+              <button type="button" class="btn primary small" style="flex: 1;" onclick="openPlaceModal('skypark')">Detail & Foto</button>
+              <a href="https://www.google.com/maps/search/Marina+Bay+Sands+SkyPark+Observation+Deck" target="_blank" class="btn outline small">Google Maps</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+<section id="pane-transit" class="tab-pane">
       <div style="margin-bottom: 18px;">
         <h2 style="font-family: 'Manrope', sans-serif; font-size: 18px; font-weight: 800; margin-bottom: 4px;">Peta Rute Integrasi Kereta (MRT/LRT) & Bus</h2>
         <p style="font-size: 13px; color: var(--muted);">Navigasi seluruh jalur rel dan bus dari Hotel Chancellor@Orchard dengan Singapore Tourist Pass (STP).</p>
@@ -1724,12 +2144,12 @@
           <span class="badge-stp">OFFICIAL SCHEMATIC</span>
         </div>
 
-        <div class="map-preview-wrap" onclick="openLightbox('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80', 'Peta Sistem Jaringan MRT / LRT Singapura (LTA Official)', 'TRANSIT')">
-          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" 
-               alt="Peta Sistem Transit Singapura" 
+                <div class="map-preview-wrap" onclick="openLightbox('assets/mrt_network_map.svg', 'Peta Sistem Jaringan MRT / LRT Singapura (LTA Official)', 'LTA NETWORK')">
+          <img src="assets/mrt_network_map.svg" 
+               alt="Peta Skematik Jalur Kereta MRT dan LRT Singapura" 
                class="map-preview-img"
-               onerror="this.src='https://images.unsplash.com/photo-1496939376851-89342e90adcd?auto=format&fit=crop&w=1200&q=80'">
-          <div class="photo-zoom-hint">⛶ Klik untuk Layar Penuh</div>
+               onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Singapore_MRT_and_LRT_System_Map.svg/1280px-Singapore_MRT_and_LRT_System_Map.svg.png'">
+          <div class="photo-zoom-hint">🔍 Ketuk untuk Layar Penuh & Zoom Skematik</div>
         </div>
 
         <!-- LINE PILLS GUIDE -->
@@ -1778,9 +2198,14 @@
           </div>
         </div>
 
-        <a href="https://www.lta.gov.sg/content/dam/ltagov/getting_around/public_transport/rail_network/image/system-map.jpg" target="_blank" class="btn outline" style="width: 100%; font-size: 12px; padding: 8px;">
-          Buka Peta Resolusi Tinggi LTA Official
-        </a>
+        <div style="display: flex; gap: 8px; margin-top: 10px;">
+          <button type="button" class="btn primary" style="flex: 1; font-size: 12px; padding: 10px;" onclick="openLightbox('assets/mrt_network_map.svg', 'Peta Sistem Jaringan MRT / LRT Singapura (LTA Official)', 'LTA NETWORK')">
+            🔍 Buka Peta Skematik (Zoom)
+          </button>
+          <a href="https://www.lta.gov.sg/content/dam/ltagov/getting_around/public_transport/rail_network/image/train-network-map.pdf" target="_blank" class="btn outline" style="flex: 1; font-size: 12px; padding: 10px; text-align: center;">
+            📄 Unduh PDF Resmi LTA
+          </a>
+        </div>
       </div>
 
       <!-- HUB INFO -->
@@ -2421,11 +2846,11 @@ Hotel Chancellor@Orchard
   <!-- Bottom Navigation -->
   <footer class="footer-nav">
     <div class="nav-inner">
-      <button class="nav-btn active" onclick="setTab('schedule', this)">Rundown</button>
-      <button class="nav-btn" onclick="setTab('transit', this)">Transit</button>
-      <button class="nav-btn" onclick="setTab('packing', this)">Checklist</button>
-      <button class="nav-btn" onclick="setTab('routes', this)">Rute Lari</button>
-      <button class="nav-btn" onclick="setTab('survival', this)">Bantuan</button>
+      <button type="button" class="nav-btn active" onclick="setTab('schedule', this)">Rundown</button>
+      <button type="button" class="nav-btn" onclick="setTab('mustvisit', this)">Spot Wajib</button>
+      <button type="button" class="nav-btn" onclick="setTab('transit', this)">Transit</button>
+      <button type="button" class="nav-btn" onclick="setTab('packing', this)">Checklist</button>
+      <button type="button" class="nav-btn" onclick="setTab('survival', this)">Bantuan</button>
     </div>
   </footer>
 
@@ -2451,7 +2876,22 @@ Hotel Chancellor@Orchard
     updateClocks();
 
     // Tab Navigation
-    function setTab(tabId, elBtn) {
+    
+    // Filter Must-Visit Destinations
+    function filterMustVisit(category, btn) {
+      document.querySelectorAll('.btn-filter-mv').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      const cards = document.querySelectorAll('.mv-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+function setTab(tabId, elBtn) {
       document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.tab-item').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -2684,7 +3124,127 @@ Hotel Chancellor@Orchard
         transit: 'Jaringan MRT SMRT (North-South Line, East-West Line, Circle Line, Thomson-East Coast Line).',
         mapsUrl: 'https://www.google.com/maps/search/SMRT+Corporation+Singapore'
       },
-      'jewel': {
+            'police': {
+        title: 'Old Hill Street Police Station (927 Jendela Pelangi)',
+        timeBadge: 'PAGI / SORE • 08:30 - 17:30 (SGT)',
+        category: 'Spot Foto Paling Viral • Internet Pick',
+        image: 'assets/police_station.jpg',
+        fallback: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Monumen nasional cagar budaya dibangun tahun 1934 bergaya Neo-Klasik dengan daya tarik utama 927 daun jendela kayu yang dicat bergradasi warna-warni pelangi. Spot foto OOTD paling populer dan viral di media sosial saat ke Singapura.',
+        photoSpot: 'Trotoar seberang Hill Street di depan Clarke Quay Central, atau sudut diagonal persimpangan River Valley Road.',
+        tips: 'Datang pagi hari sebelum jam 10:00 untuk pencahayaan matahari merata dan kondisi lalu lintas yang tidak terlalu ramai saat mengambil foto.',
+        transit: 'MRT Clarke Quay (NE5) Exit E langsung jalan kaki 2 menit, atau MRT Fort Canning (DT20) Exit B.',
+        mapsUrl: 'https://www.google.com/maps/search/Old+Hill+Street+Police+Station'
+      },
+      'hajilane': {
+        title: 'Haji Lane (Mural Street Art & Hipster Lane)',
+        timeBadge: 'SORE / SENJA • 15:30 - 20:00 (SGT)',
+        category: 'Lorong Seni & Belanja • Kampong Gelam',
+        image: 'assets/haji_lane.jpg',
+        fallback: 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Lorong gang sempit legendaris di Kampong Gelam yang terkenal dengan deretan mural grafiti raksasa karya seniman dunia, butik desainer independen, toko parfum vintage, dan cafe estetik yang selalu ramai dikunjungi traveler muda.',
+        photoSpot: 'Mural raksasa bergaya Maya-Aztec di dinding restoran Piedra Negra di persimpangan Beach Road & Haji Lane.',
+        tips: 'Toko dan kafe mulai buka aktif sekitar jam 12:00 siang. Sangat cocok dikunjungi berurutan dengan Masjid Sultan karena letaknya berdampingan (hanya 2 menit jalan kaki).',
+        transit: 'MRT Bugis (EW12/DT14) Exit B jalan kaki 5 menit menyusuri Ophir Road ke Haji Lane.',
+        mapsUrl: 'https://www.google.com/maps/search/Haji+Lane+Singapore'
+      },
+      'helix': {
+        title: 'The Helix Bridge (Jembatan DNA Marina Bay)',
+        timeBadge: 'MALAM HARI • 19:30 - 22:30 (SGT)',
+        category: 'Arsitektur Futuristik • Marina Bay',
+        image: 'assets/helix_bridge.jpg',
+        fallback: 'https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Jembatan pejalan kaki melengkung pertama di dunia yang terinspirasi dari struktur spiral ganda DNA manusia sepanjang 280 meter. Dilengkapi 4 viewing pod kaca yang menjorok di atas teluk untuk memotret panorama spektakuler Marina Bay Sands dan ArtScience Museum.',
+        photoSpot: 'Viewing pod kedua di tengah jembatan menghadap langsung ke arah tiga menara Marina Bay Sands dan pantulan cahaya lampu di air teluk.',
+        tips: 'Akses 100% GRATIS dan buka 24 jam. Jembatan ini menghubungkan Marina Centre dengan The Shoppes at Marina Bay Sands.',
+        transit: 'MRT Bayfront (DT16/CE1) atau Promenade (CC4/DT15) jalan kaki 4 menit.',
+        mapsUrl: 'https://www.google.com/maps/search/The+Helix+Bridge+Singapore'
+      },
+      'chinatown': {
+        title: 'Buddha Tooth Relic Temple & Chinatown Street Market',
+        timeBadge: 'PAGI / SIANG • 09:00 - 15:00 (SGT)',
+        category: 'Wisata Religi & Budaya • Chinatown',
+        image: 'assets/chinatown.jpg',
+        fallback: 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Kuil megah bergaya Dinasti Tang empat lantai dengan stupa emas seberat 420 kg yang menyimpan relik gigi suci Buddha. Di sekitarnya membentang Pagoda Street dan Trengganu Street yang penuh pernak-pernik, teh tradisional Cina, dan lampion warna-warni.',
+        photoSpot: 'Fasad pintu utama kuil dari seberang South Bridge Road dengan latar atap stupa bertingkat khas arsitektur oriental kuno.',
+        tips: 'Tiket masuk GRATIS. Pengunjung wajib berpakaian sopan (menutup bahu dan lutut). Kain selendang disediakan gratis di gerbang masuk.',
+        transit: 'MRT Chinatown (NE4/DT19) Exit A atau MRT Maxwell (TE18) Exit 1 persis di seberang kuil.',
+        mapsUrl: 'https://www.google.com/maps/search/Buddha+Tooth+Relic+Temple+Singapore'
+      },
+      'tiantian': {
+        title: 'Maxwell Food Centre & Tian Tian Chicken Rice',
+        timeBadge: 'SIANG HARI • 11:00 - 14:30 (SGT)',
+        category: 'Kuliner Michelin Bib Gourmand • Chinatown',
+        image: 'assets/chinatown.jpg',
+        fallback: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Hawker centre paling tersohor di Singapura. Gerai Tian Tian Hainanese Chicken Rice di sini adalah peraih Michelin Bib Gourmand dan dipuji Anthony Bourdain sebagai nasi ayam terlezat. Nasi berkaldu gurih disajikan dengan ayam dingin super lembut dan saus cabai jahe otentik.',
+        photoSpot: 'Plang biru khas gerai Tian Tian (#01-10/11) dengan piring saji nasi ayam utuh dan saus cabai jahe.',
+        tips: 'Datang pukul 11:00 pagi saat kios baru buka untuk menghindari antrean panjang 30-45 menit. Sediakan uang tunai SGD pecahan $5 atau $10.',
+        transit: 'MRT Maxwell (TE18) Exit 1 (hanya 50 meter di samping pintu masuk hawker).',
+        mapsUrl: 'https://www.google.com/maps/search/Maxwell+Food+Centre+Singapore'
+      },
+      'zamzam': {
+        title: 'Singapore Zam Zam Restaurant (Murtabak Sejak 1908)',
+        timeBadge: 'SIANG / MALAM • 11:00 - 22:00 (SGT)',
+        category: 'Kuliner Halal Legendaris • Kampong Gelam',
+        image: 'assets/sultan.jpg',
+        fallback: 'https://images.unsplash.com/photo-1702085241329-2525b7b71cef?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Restoran legendaris berusia lebih dari 116 tahun tepat di seberang gerbang Masjid Sultan. Destinasi kuliner wajib bagi pelancong Indonesia yang mencari makanan 100% Halal dengan cita rasa Murtabak Daging Rusa/Sapi tebal berbalut telur garing, disiram kuah kari kambing gurih pedas.',
+        photoSpot: 'Meja lantai dua dekat jendela dengan pemandangan kubah emas Masjid Sultan sambil menikmati sajian Murtabak & Teh Tarik.',
+        tips: 'Porsi ukuran "Small" atau "Medium" di Zam Zam sangat berlimpah dan cukup untuk disantap berdua. Tersedia juga Nasi Briyani Daging Rusa.',
+        transit: 'MRT Bugis (DT14) atau Jalan Besar (DT22), seberang Masjid Sultan.',
+        mapsUrl: 'https://www.google.com/maps/search/Singapore+Zam+Zam+Restaurant'
+      },
+      'clarkequay': {
+        title: 'Clarke Quay & Singapore River Walk',
+        timeBadge: 'SORE / MALAM • 17:30 - 21:30 (SGT)',
+        category: 'Dermaga Tepi Sungai & Kafe • Heritage',
+        image: 'assets/clarkequay.jpg',
+        fallback: 'https://images.unsplash.com/photo-1565967511849-76a60a516170?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Dermaga bersejarah tepi Singapore River yang dahulu merupakan pusat bongkar muat kapal tongkang rempah kolonial. Kini disulap menjadi kawasan promenade tepi air berkanopi futuristik dengan deretan gedung warna-warni, jembatan Read Bridge, dan dermaga perahu River Cruise.',
+        photoSpot: 'Dari atas jembatan Cavenagh Bridge atau Read Bridge menghadap ke pantulan lampu neon warna-warni deretan ruko di atas permukaan sungai.',
+        tips: 'Waktu terbaik adalah saat senja jam 18:00 saat lampu-lampu sungai mulai menyala. Jaraknya hanya 12 menit jalan kaki santai dari Fort Canning.',
+        transit: 'MRT Clarke Quay (NE5) Exit G atau Fort Canning (DT20) Exit A.',
+        mapsUrl: 'https://www.google.com/maps/search/Clarke+Quay+Singapore'
+      },
+      'cloudforest': {
+        title: 'Cloud Forest & Flower Dome (Gardens by the Bay)',
+        timeBadge: 'PAGI / SIANG • 09:00 - 16:00 (SGT)',
+        category: 'Konservatori Bioma Dunia • Modern Marvel',
+        image: 'assets/cloudforest.jpg',
+        fallback: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Dua rumah kaca bioma raksasa tanpa tiang terbesar di dunia. Cloud Forest menyajikan gunung tropis setinggi 35 meter yang diselimuti kabut sejuk dan air terjun dalam ruangan tertinggi, lengkap dengan Cloud Walk melayang di atas kanopi tanaman karnivora dan anggrek langka.',
+        photoSpot: 'Tepat di lantai dasar depan semburan air terjun Cloud Mountain dengan tirai kabut putih yang menyegarkan.',
+        tips: 'Suhu di dalam konservatori cukup dingin (sekitar 23-25 derajat Celcius). Sangat disarankan membeli tiket online via Klook / Traveloka sebelumnya untuk tiket masuk konservatori.',
+        transit: 'MRT Bayfront (DT16/CE1) Exit B atau MRT Gardens by the Bay (TE22) Exit 1.',
+        mapsUrl: 'https://www.google.com/maps/search/Cloud+Forest+Gardens+by+the+Bay'
+      },
+      'yakun': {
+        title: 'Ya Kun Kaya Toast (Sarapan Klasik Singapura)',
+        timeBadge: 'PAGI HARI • 07:00 - 10:00 (SGT)',
+        category: 'Kuliner Sarapan Otentik • Orchard/Somerset',
+        image: 'assets/emerald.jpg',
+        fallback: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Sarapan paling otentik warisan budaya Singapura sejak tahun 1944. Roti bakar tipis kecokelatan yang dipanggang arang diisi selai srikaya harum dan potongan mentega dingin (*butter*), disajikan bersama dua butir telur setengah matang berkuah kecap asin hitam dan secangkir Kopi-O panas.',
+        photoSpot: 'Sajian set sarapan tradisional lengkap di atas nampan vintage berlogo Ya Kun Kaya Toast.',
+        tips: 'Cabang terdekat dari Hotel Chancellor berada di mall 313@Somerset (hanya 4 menit jalan kaki). Cara makan telur: beri kecap asin hitam dan bubuk lada putih, aduk rata, lalu cocol roti srikaya ke dalamnya!',
+        transit: 'Jalan kaki langsung 4 menit dari hotel ke 313@Somerset Level 1 / Basement.',
+        mapsUrl: 'https://www.google.com/maps/search/Ya+Kun+Kaya+Toast+313+Somerset'
+      },
+      'skypark': {
+        title: 'Marina Bay Sands SkyPark Observation Deck',
+        timeBadge: 'SENJA / MALAM • 17:30 - 20:30 (SGT)',
+        category: 'Pemandangan 360 Derajat • Marina Bay',
+        image: 'assets/merlion.jpg',
+        fallback: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Dek observasi terbuka di lantai 56 menara Marina Bay Sands setinggi 200 meter di atas tanah. Menawarkan sudut pandang 360 derajat terbaik melihat seluruh cakrawala Singapura, Gardens by the Bay dari atas awan, Selat Singapura, hingga pulau-pulau di Kepulauan Riau Indonesia.',
+        photoSpot: 'Sudut utara dek observasi menghadap lanskap Singapore Flyer dan Gardens by the Bay di bawah semburat warna lembayung senja.',
+        tips: 'Pesan slot waktu pukul 17:30–18:30 agar Anda bisa mendapatkan dua momen sekaligus: pemandangan terang sore hari dan gemerlap jutaan lampu kota di malam hari.',
+        transit: 'MRT Bayfront (DT16/CE1) Exit B, pintu masuk SkyPark ada di Tower 3 basement.',
+        mapsUrl: 'https://www.google.com/maps/search/Marina+Bay+Sands+SkyPark+Observation+Deck'
+      },
+'jewel': {
         title: 'Jewel Changi Airport (HSBC Rain Vortex)',
         timeBadge: '🌇 SORE / SENJA • 14:00 - 19:00 (SGT)',
         category: 'Transit & Kepulangan • Tour Resmi',
