@@ -1,0 +1,3036 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Singapore Guide">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#111714">
+  <noscript>
+    <style>
+      .tab-pane { display: block !important; margin-bottom: 40px; border-top: 1px dashed var(--line); padding-top: 24px; }
+      .timeline-container { display: flex !important; }
+      .footer-nav { display: none !important; }
+      .filter-row { display: none !important; }
+      .tab-nav { display: none !important; }
+    </style>
+  </noscript>
+  <title>Singapore Transit & Field Guide • Krisna Bhakti</title>
+  
+  <!-- Aura Typography: Manrope (Headings), DM Sans (Body), JetBrains Mono (Transit/Code) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #efeee8;
+      background: #111714;
+      font-synthesis: none;
+      
+      --accent: #d7ed9c;
+      --accent-hover: #e5f5be;
+      --muted: #abb5ab;
+      --line: #344039;
+      --panel: #1c2620;
+      --panel-hover: #233228;
+      --panel-dark: #141c17;
+      
+      --mrt-ns: #d42e12;
+      --mrt-ne: #9016b2;
+      --mrt-dt: #005ec4;
+      --mrt-te: #9d5b25;
+      --mrt-ew: #009640;
+      --mrt-cc: #fa9e0d;
+      
+      color-scheme: dark;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #111714;
+      color: #efeee8;
+      line-height: 1.65;
+      padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      -webkit-tap-highlight-color: rgba(215, 237, 156, 0.2);
+    }
+
+    button, input, select, [onclick], .btn, .nav-btn, .tab-item, .btn-filter, .dual-btn, .btn-place-popup, .btn-done-toggle {
+      font: inherit;
+      touch-action: manipulation;
+      cursor: pointer;
+      -webkit-tap-highlight-color: rgba(215, 237, 156, 0.2);
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: #111714;
+    }
+
+    .container {
+      width: min(720px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    /* Top Strip Header */
+    .header-strip {
+      border-bottom: 1px solid var(--line);
+      background: rgba(17, 23, 20, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding-top: env(safe-area-inset-top, 0px);
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+    }
+
+    .brand {
+      font-family: 'Manrope', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .brand span {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .clocks {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+    }
+
+    .clock-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .clock-label {
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .clock-time {
+      color: #efeee8;
+      font-weight: 600;
+    }
+
+    .clock-time.sgt {
+      color: var(--accent);
+    }
+
+    /* Profile Spec Panel */
+    .profile-spec {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 20px 0 24px;
+    }
+
+    .profile-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      gap: 12px;
+    }
+
+    .profile-title {
+      font-family: 'Manrope', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .profile-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .badge-stp {
+      background: #233228;
+      border: 1px solid #4b5e4e;
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px 20px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .spec-item dt {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .spec-item dd {
+      font-size: 13px;
+      color: #efeee8;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    /* Navigation Tabs */
+    .tab-bar {
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 24px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .tab-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-item {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 14px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .tab-item:hover {
+      color: #efeee8;
+    }
+
+    .tab-item.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* Panes */
+    .tab-pane {
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    /* Filter Controls */
+    .filter-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .day-group {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-filter {
+      background: var(--panel-dark);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-filter.active {
+      background: #233228;
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Cards */
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 14px;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      border-color: #4f6356;
+    }
+
+    .card.highlight {
+      background: #202b23;
+      border-color: #4b6352;
+    }
+
+    /* DONE State */
+    .card.is-done {
+      opacity: 0.45;
+      background: #141c17;
+      border-color: rgba(52, 64, 57, 0.4);
+      order: 999;
+    }
+
+    .card.is-done .card-title {
+      text-decoration: line-through;
+      color: var(--muted);
+    }
+
+    .card.is-done:hover {
+      opacity: 0.8;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 12px;
+    }
+
+    .card-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .card-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .btn-done-toggle {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      border-radius: 4px;
+      font-size: 11px;
+      padding: 3px 8px;
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+      transition: all 0.15s;
+    }
+
+    .btn-done-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .card.is-done .btn-done-toggle {
+      background: #233228;
+      border-color: #4b5e4e;
+      color: var(--accent);
+    }
+
+    .btn-place-popup {
+      background: #141c17;
+      border: 1px solid var(--line);
+      color: var(--accent);
+      border-radius: 4px;
+      font-size: 11px;
+      padding: 3px 8px;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: all 0.15s;
+    }
+
+    .btn-place-popup:hover {
+      background: #233228;
+      border-color: var(--accent);
+    }
+
+    .card-type {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2px 7px;
+      border-radius: 4px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .card-type.batik {
+      border-color: #8c733e;
+      color: #ffd166;
+      background: #2a2416;
+    }
+
+    .card-type.free {
+      border-color: #4b5e4e;
+      color: var(--accent);
+      background: #1c2620;
+    }
+
+    .card-title {
+      font-family: 'Manrope', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #efeee8;
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Dual Option Switcher */
+    .dual-option-box {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(52, 64, 57, 0.6);
+    }
+
+    .dual-nav {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+      background: var(--panel-dark);
+      padding: 4px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+    }
+
+    .dual-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 6px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+    }
+
+    .dual-btn.active {
+      background: #233228;
+      color: var(--accent);
+      border: 1px solid #4b5e4e;
+    }
+
+    .dual-content {
+      background: var(--panel-dark);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 12px;
+    }
+
+    .dual-content-title {
+      font-family: 'Manrope', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #efeee8;
+      margin-bottom: 4px;
+    }
+
+    .dual-content-desc {
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 10px;
+    }
+
+    .dual-spec {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .dual-btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    /* Transit Timetable */
+    .transit-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .badge-bus { background: #233228; border: 1px solid #4b5e4e; color: var(--accent); }
+    .badge-mrt-ns { background: #3b1411; border: 1px solid #6e2722; color: #fca5a5; }
+    .badge-mrt-ne { background: #2f1238; border: 1px solid #5a266a; color: #f0abfc; }
+    .badge-mrt-dt { background: #0c2340; border: 1px solid #1a4373; color: #93c5fd; }
+    .badge-mrt-te { background: #2e1d13; border: 1px solid #573a27; color: #fdba74; }
+    .badge-mrt-ew { background: #0c2b18; border: 1px solid #1e633a; color: #86efac; }
+    .badge-mrt-cc { background: #382405; border: 1px solid #7c4f0b; color: #fde047; }
+
+    .timetable-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 6px;
+      font-size: 12px;
+    }
+
+    .timetable-table th {
+      text-align: left;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--line);
+      font-weight: 600;
+    }
+
+    .timetable-table td {
+      padding: 10px;
+      border-bottom: 1px solid rgba(52, 64, 57, 0.4);
+      color: #efeee8;
+      vertical-align: middle;
+    }
+
+    .timetable-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .freq-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #111714;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .btn:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn.outline {
+      background: transparent;
+      color: var(--accent);
+      border-color: var(--line);
+    }
+
+    .btn.outline:hover {
+      background: #1c2620;
+      border-color: #4b5e4e;
+    }
+
+    .btn.block {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .btn.small {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    /* Checklist & Meter */
+    .meter-box {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+    }
+
+    .meter-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+
+    .meter-text {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .meter-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .meter-bar {
+      height: 4px;
+      background: var(--panel-dark);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .meter-fill {
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .check-group {
+      margin-bottom: 24px;
+    }
+
+    .check-category {
+      font-family: 'Manrope', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .check-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .check-row:hover {
+      background: var(--panel-hover);
+    }
+
+    .check-row input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 1px solid var(--muted);
+      border-radius: 4px;
+      margin-top: 3px;
+      cursor: pointer;
+      display: grid;
+      place-content: center;
+      flex-shrink: 0;
+      background: transparent;
+      transition: all 0.15s;
+    }
+
+    .check-row input[type="checkbox"]:checked {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .check-row input[type="checkbox"]:checked::before {
+      content: '✓';
+      color: #111714;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .check-row.done {
+      border-color: rgba(52, 64, 57, 0.4);
+      background: rgba(28, 38, 32, 0.5);
+    }
+
+    .check-row.done .check-title {
+      text-decoration: line-through;
+      color: var(--muted);
+    }
+
+    .check-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #efeee8;
+    }
+
+    .check-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+      line-height: 1.45;
+    }
+
+    .badge-qty {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 3px;
+      background: var(--panel-dark);
+      border: 1px solid var(--line);
+      color: var(--accent);
+      margin-left: 6px;
+    }
+
+    /* TRANSIT MAP INTEGRATION STYLING */
+    .transit-map-box {
+      background: var(--panel-dark);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 18px;
+    }
+
+    .transit-line-pill-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 8px;
+      margin: 12px 0 16px;
+    }
+
+    .line-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 11px;
+    }
+
+    .line-color-bar {
+      width: 4px;
+      height: 24px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .line-pill-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .line-pill-name {
+      font-weight: 700;
+      color: #efeee8;
+      font-size: 11px;
+    }
+
+    .line-pill-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .map-preview-wrap {
+      position: relative;
+      width: 100%;
+      height: 260px;
+      background: #0d1410;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+
+    .map-preview-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* POPUP MODAL (DESTINATION PHOTO & INFO) */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+      animation: modalFadeIn 0.2s ease forwards;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-box {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      max-width: 580px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+      position: relative;
+    }
+
+    /* EXPANDABLE & NON-CROPPED PHOTO CONTAINER */
+    .modal-image-wrap {
+      position: relative;
+      width: 100%;
+      height: 290px;
+      background: #080d0a;
+      overflow: hidden;
+      border-top-left-radius: 13px;
+      border-top-right-radius: 13px;
+      cursor: zoom-in;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+      transition: transform 0.25s ease, filter 0.2s;
+    }
+
+    .modal-image.contain-mode {
+      object-fit: contain;
+      background: #060907;
+    }
+
+    .modal-image-wrap:hover .modal-image:not(.contain-mode) {
+      transform: scale(1.025);
+    }
+
+    .photo-controls {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 5;
+    }
+
+    .photo-ctrl-btn {
+      background: rgba(17, 23, 20, 0.9);
+      border: 1px solid var(--line);
+      color: #efeee8;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    .photo-ctrl-btn:hover {
+      background: #233228;
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .photo-ctrl-btn.primary {
+      background: rgba(35, 50, 40, 0.95);
+      border-color: #4b5e4e;
+      color: var(--accent);
+    }
+
+    .photo-time-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(17, 23, 20, 0.92);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 5;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(17, 23, 20, 0.9);
+      border: 1px solid var(--line);
+      color: #efeee8;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      cursor: pointer;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .modal-close-btn:hover {
+      background: #233228;
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .modal-body {
+      padding: 20px 24px 24px;
+    }
+
+    .modal-category {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .modal-title {
+      font-family: 'Manrope', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .modal-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+
+    .modal-section {
+      background: var(--panel-dark);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+    }
+
+    .modal-sec-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .modal-sec-text {
+      font-size: 12px;
+      color: #efeee8;
+      line-height: 1.55;
+    }
+
+    .modal-footer {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    /* FULLSCREEN LIGHTBOX MODAL (100% UNCROPPED VIEW) */
+    .lightbox-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(7, 11, 9, 0.96);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .lightbox-overlay.open {
+      display: flex;
+      animation: modalFadeIn 0.15s ease forwards;
+    }
+
+    .lightbox-box {
+      width: min(1060px, 96vw);
+      max-height: 94vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background: #111714;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px 18px 18px;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.95);
+      gap: 12px;
+    }
+
+    .lightbox-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .lightbox-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .lightbox-title {
+      font-family: 'Manrope', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+    }
+
+    .lightbox-close-btn {
+      background: #1c2620;
+      border: 1px solid var(--line);
+      color: #efeee8;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    .lightbox-close-btn:hover {
+      background: #233228;
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .lightbox-image-stage {
+      width: 100%;
+      height: min(66vh, 620px);
+      background: #000000;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-in;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+    }
+
+    .lightbox-image-stage.zoomed {
+      cursor: zoom-out;
+      overflow: auto;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+      transition: transform 0.25s ease;
+      user-select: none;
+    }
+
+    .lightbox-image-stage.zoomed .lightbox-img {
+      max-width: none;
+      max-height: none;
+      transform: scale(1.6);
+      cursor: grab;
+    }
+
+    .lightbox-bottom-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding-top: 4px;
+    }
+
+    .lightbox-spot-tip {
+      font-size: 12px;
+      color: #efeee8;
+      line-height: 1.5;
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .lightbox-spot-tip strong {
+      color: var(--accent);
+    }
+
+    .lightbox-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .lightbox-hint {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Fixed Bottom Nav */
+    .footer-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(17, 23, 20, 0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--line);
+      padding-bottom: max(8px, env(safe-area-inset-bottom, 0px));
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-around;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 6px 8px;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      padding: 10px 10px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      text-transform: uppercase;
+      transition: color 0.15s, background-color 0.15s;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: rgba(215, 237, 156, 0.2);
+    }
+
+    .nav-btn:active, .nav-btn.active {
+      color: var(--accent);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: calc(75px + env(safe-area-inset-bottom, 0px));
+      left: 50%;
+      transform: translateX(-50%) translateY(40px);
+      background: #1c2620;
+      border: 1px solid var(--accent);
+      color: #efeee8;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s ease;
+      z-index: 200;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .timeline-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (max-width: 600px) {
+      .spec-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .clocks {
+        gap: 8px;
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <noscript>
+    <div style="background: #2a1614; border-bottom: 2px solid #ff5252; color: #ffcdd2; padding: 14px 18px; font-size: 13px; line-height: 1.5; text-align: center; position: sticky; top: 0; z-index: 9999;">
+      ⚠️ <strong>Pratinjau iOS (Quick Look) Terdeteksi &bull; JavaScript Nonaktif</strong><br>
+      Apple otomatis mematikan fungsi klik jika file dibuka langsung dari <em>Files / WhatsApp / Telegram</em> di iPhone.<br>
+      <strong>Semua rundown (Day 1, Day 2, Day 3, Transit, Checklist) ditampilkan berurutan di bawah.</strong><br>
+      💡 <em>Untuk tombol klik, live clock & checklist interaktif: Buka link via browser <strong>Safari</strong>.</em>
+    </div>
+  </noscript>
+
+  <!-- Top Strip -->
+  <header class="header-strip">
+    <div class="container header-inner">
+      <div class="brand">
+        AURA <span>// SG 2026</span>
+      </div>
+      <div class="clocks">
+        <div class="clock-item">
+          <span class="clock-label">SGT</span>
+          <span class="clock-time sgt" id="clock-sgt">--:--:--</span>
+        </div>
+        <div class="clock-item">
+          <span class="clock-label">WIB</span>
+          <span class="clock-time" id="clock-wib">--:--:--</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Profile & Metadata Panel -->
+    <section class="profile-spec">
+      <div class="profile-head">
+        <div>
+          <h1 class="profile-title">Krisna Bhakti N.</h1>
+          <p class="profile-sub">Konsinyering RMU LRT Batam & Benchmarking SMRT Singapore</p>
+        </div>
+        <span class="badge-stp">TOURIST PASS ACTIVE</span>
+      </div>
+
+      <dl class="spec-grid">
+        <div class="spec-item">
+          <dt>Akomodasi Hotel</dt>
+          <dd>Hotel Chancellor@Orchard (28 Cavenagh Rd)</dd>
+        </div>
+        <div class="spec-item">
+          <dt>Hub Stasiun Terdekat</dt>
+          <dd>Somerset MRT (450m) • Dhoby Ghaut (650m)</dd>
+        </div>
+        <div class="spec-item">
+          <dt>Batas Bagasi Citilink</dt>
+          <dd>Check-in 10 kg maks • Kabin 7 kg</dd>
+        </div>
+        <div class="spec-item">
+          <dt>Kontak EO Rombongan</dt>
+          <dd>Firman: +62 877-8618-4800</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- Sub Navigation Tabs -->
+    <nav class="tab-bar">
+      <button class="tab-item active" onclick="setTab('schedule', this)">Rundown 3D2N</button>
+      <button class="tab-item" onclick="setTab('transit', this)">Peta Transit & Jadwal</button>
+      <button class="tab-item" onclick="setTab('packing', this)">Checklist & Bagasi</button>
+      <button class="tab-item" onclick="setTab('routes', this)">Rute Lari & Alam</button>
+      <button class="tab-item" onclick="setTab('survival', this)">Panduan & Bantuan</button>
+    </nav>
+
+    <!-- ==================== TAB 1: RUNDOWN 3D2N ==================== -->
+    <section id="pane-schedule" class="tab-pane active">
+      <div class="filter-row">
+        <div class="day-group">
+          <button class="btn-filter active" onclick="switchDay(1, this)">Day 1 (30 Okt)</button>
+          <button class="btn-filter" onclick="switchDay(2, this)">Day 2 (31 Okt)</button>
+          <button class="btn-filter" onclick="switchDay(3, this)">Day 3 (1 Nov)</button>
+        </div>
+        <div>
+          <a href="itinerary_singapore_2026.ics" download class="btn outline" style="padding: 6px 12px; font-size: 12px;">
+            Sinkronkan Kalender (.ics)
+          </a>
+        </div>
+      </div>
+
+      <!-- DAY 1 CONTAINER -->
+      <div id="day-1-content" class="timeline-container">
+        
+        <div class="card" id="card-d1-1" data-order="1">
+          <div class="card-top">
+            <span class="card-time">01:00 - 02:00 WIB</span>
+            <div class="card-actions">
+              <span class="card-type">TITIK KUMPUL</span>
+              <button class="btn-done-toggle" onclick="toggleRundownDone('card-d1-1')">Selesai</button>
+            </div>
+          </div>
+          <h3 class="card-title">Kumpul di Kantor LRT Jabodebek</h3>
+          <p class="card-desc">Absensi rombongan peserta LRT Jabodebek & KAI Services. Pastikan KTP, Paspor asli, dan kemeja batik resmi siap di tas kabin.</p>
+        </div>
+
+        <div class="card" id="card-d1-2" data-order="2">
+          <div class="card-top">
+            <span class="card-time">03:00 - 05:15 WIB</span>
+            <div class="card-actions">
+              <span class="card-type">CITILINK ✈️</span>
+              <button class="btn-done-toggle" onclick="toggleRundownDone('card-d1-2')">Selesai</button>
+            </div>
+          </div>
+          <h3 class="card-title">Bandara Soekarno Hatta (Terminal 1C)</h3>
+          <p class="card-desc">Drop bagasi pesawat Citilink (Maks 10 kg). Powerbank wajib di tas kabin. Penerbangan menuju Batam pukul 05:15 WIB.</p>
+        </div>
+
+        <div class="card highlight" id="card-d1-3" data-order="3">
+          <div class="card-top">
+            <span class="card-time">09:30 - 11:30 WIB</span>
+            <div class="card-actions">
+              <button class="btn-place-popup" onclick="openPlaceModal('batam')">Info & Foto</button>
+              <span class="card-type batik">WAJIB BAJU BATIK</span>
+              <button class="btn-done-toggle" onclick="toggleRundownDone('card-d1-3')">Selesai</button>
+            </div>
+          </div>
+          <h3 class="card-title">Meeting Konsinyering Pembahasan di Batam</h3>
+          <p class="card-desc">Evaluasi pekerjaan 2026 & persiapan pekerjaan 2027 setelah sarapan di Morning Bakery. Sesi dokumentasi resmi mewajibkan kemeja batik.</p>
+        </div>
+
+        <div class="card" id="card-d1-4" data-order="4">
+          <div class="card-top">
+            <span class="card-time">13:30 - 15:00 SGT</span>
+            <div class="card-actions">
+              <button class="btn-place-popup" onclick="openPlaceModal('batam')">Info & Foto</button>
+              <span class="card-type">FERRY & IMIGRASI</span>
+              <button class="btn-done-toggle" onclick="toggleRundownDone('card-d1-4')">Selesai</button>
+            </div>
+          </div>
+          <h3 class="card-title">Penyeberangan Ferry ke Singapore</h3>
+          <p class="card-desc">Pelabuhan Batam Center menuju Singapura. Pemeriksaan paspor & barcode MyICA Mobile. <strong>Rokok & vape dilarang keras!</strong> Jam Singapura maju 1 jam (GMT+8).</p>
+        </div>
+
+        <div class="card" id="card-d1-5" data-order="5">
+          <div class="card-top">
+            <span class="card-time">15:00 - 20:00 SGT</span>
+            <div class="card-actions">
+              <button class="btn-place-popup" onclick="openPlaceModal('merlion')">Merlion (Sore)</button>
+              <button class="btn-place-popup" onclick="openPlaceModal('spectra')">Spectra (Malam)</button>
+              <span class="card-type">TOUR RESMI</span>
+              <button class="btn-done-toggle" onclick="toggleRundownDone('card-d1-5')">Selesai</button>
+            </div>
+          </div>
+          <h3 class="card-title">Merlion Park & Pertunjukan Spectra Marina Bay Sands</h3>
+          <p class="card-desc">City tour sore di Merlion, makan malam bersama, dan menyaksikan pertunjukan air mancur & laser Spectra MBS di malam hari.</p>
+        </div>
+
+        <!-- FREE TIME DAY 1 WITH DUAL OPTION -->
+        <div class="card highlight" id="card-d1-6" data-order="6">
+          <div class="card-top">
+            <span class="card-time">20:30 - SELESAI SGT</span>
+            <div class="card-actions">
+              <button class="btn-place-popup" onclick="openPlaceModal('emerald')">Emerald Hill</button>
+              <span class="card-type free">FREE TIME MALAM</span>
+              <button class="btn-done-toggle" onclick="toggleRundownDone('card-d1-6')">Selesai</button>
+            </div>
+          </div>
+          <h3 class="card-title">Check-in Hotel Chancellor & Pilihan Free Time</h3>
+          <p class="card-desc">Setelah taruh koper di hotel (28 Cavenagh Rd), pilih aktivitas malam sesuai kondisi fisik Anda:</p>
+          
+          <div class="dual-option-box">
+            <div class="dual-nav">
+              <button class="dual-btn active" onclick="switchDualOption('d1-free', 'city', this)">Opsi A: Wisata Kota & Kuliner</button>
+              <button class="dual-btn" onclick="switchDualOption('d1-free', 'nature', this)">Opsi B: Night Jog / Taman</button>
+            </div>
+
+            <div id="d1-free-city" class="dual-content">
+              <div class="dual-content-title">Jalan Santai Emerald Hill & Don Don Donki Orchard (Malam)</div>
+              <div class="dual-spec">
+                <span>Waktu: Malam Hari</span>
+                <span>Jarak: 300 - 500m</span>
+                <span>Transport: Jalan Kaki</span>
+              </div>
+              <p class="dual-content-desc">Jalan kaki 5 menit ke <strong>Emerald Hill</strong> (gang rumah antik Peranakan dengan lentera temaram syahdu). Lanjut ke <strong>Don Don Donki Orchard Central</strong> (buka 24 jam) untuk jajan snack/minuman khas Jepang.</p>
+              <div class="dual-btn-group">
+                <button class="btn outline small" onclick="openPlaceModal('emerald')">Foto Emerald Hill (Malam)</button>
+                <a href="https://www.google.com/maps/search/Emerald+Hill+Singapore" target="_blank" class="btn outline small">Buka di Maps</a>
+              </div>
+            </div>
+
+            <div id="d1-free-nature" class="dual-content" style="display: none;">
+              <div class="dual-content-title">Night Easy Jog: Istana Park & Fort Canning Green</div>
+              <div class="dual-spec">
+                <span>Waktu: Malam Hari</span>
+                <span>Jarak: 3.5 km</span>
+                <span>Penerangan: Terang & Aman</span>
+              </div>
+              <p class="dual-content-desc">Lari santai malam di trotoar sejuk Orchard Road menyeberang ke Istana Park dan gerbang Fort Canning. Udaranya segar, jalanan sangat aman dan bebas bising kendaraan.</p>
+              <div class="dual-btn-group">
+                <button class="btn outline small" onclick="openPlaceModal('canning')">Foto & Info Fort Canning</button>
+                <a href="https://www.google.com/maps/dir/Hotel+Chancellor@Orchard/Fort+Canning+Park" target="_blank" class="btn outline small">Buka Rute Maps</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- DAY 2 CONTAINER -->
+      <div id="day-2-content" class="timeline-container" style="display: none;">
+        
+        <!-- FREE TIME DAY 2 PAGI WITH DUAL OPTION -->
+        <div class="card highlight" id="card-d2-1" data-order="1">
+          <div class="card-top">
+            <span class="card-time">05:45 - 07:15 SGT</span>
+            <div class="card-actions">
+              <span class="card-type free">MORNING RUN</span>
+              <button class="btn-done-toggle" onclick="toggleRundownDone('card-d2-1')">Selesai</button>
+            </div>
+          </div>
+          <h3 class="card-title">Pilihan Lari Pagi (Sebelum Sarapan Hotel)</h3>
+          <p class="card-desc">Sarapan rombongan pukul 06:00–08:00 dan bus tour berangkat 08:00. Pilih salah satu rute pagi:</p>
+          
+          <div class="dual-option-box">
+            <div class="dual-nav">
+              <button class="dual-btn active" onclick="switchDualOption('d2-run', 'nature', this)">Opsi A: Cagar Alam UNESCO (Pagi)</button>
+              <button class="dual-btn" onclick="switchDualOption('d2-run', 'heritage', this)">Opsi B: Tree Tunnel (Pagi)</button>
+            </div>
+
+            <div id="d2-run-nature" class="dual-content">
+              <div class="dual-content-title">Singapore Botanic Gardens Rainforest Trail (Pagi)</div>
+              <div class="dual-spec">
+                <span>Waktu: Pagi Segar (06:00)</span>
+                <span>Jarak Lari: 5.5 - 6.5 km</span>
+                <span>Transport: Bus 7 / 106 (11 mnt, STP)</span>
+              </div>
+              <p class="dual-content-desc">Lari di sisa hutan hujan primer asli berusia 165 tahun dan danau angsa di bawah siraman matahari pagi. Naik Bus 7/106 dari halte depan Orchard Plaza, turun langsung di Tanglin Gate.</p>
+              <div class="dual-btn-group">
+                <button class="btn outline small" onclick="openPlaceModal('botanic')">Foto Botanic Gardens (Pagi)</button>
+                <a href="https://www.google.com/maps/dir/Hotel+Chancellor@Orchard/Singapore+Botanic+Gardens" target="_blank" class="btn outline small">Navigasi Rute Maps</a>
+              </div>
+            </div>
+
+            <div id="d2-run-heritage" class="dual-content" style="display: none;">
+              <div class="dual-content-title">Fort Canning Tree Tunnel & Bukit Hijau (Pagi)</div>
+              <div class="dual-spec">
+                <span>Waktu: Pagi Hari (06:30)</span>
+                <span>Jarak: 5.2 km</span>
+                <span>Transport: On Foot (Dari Hotel)</span>
+              </div>
+              <p class="dual-content-desc">Lari dari lobi hotel ke Istana Park ➡️ gerbang Fort Canning. Foto di <strong>Tree Tunnel</strong> mumpung belum ada antrean turis jam 06:30 pagi! Sudut pandang tangga spiral menatap langit rimbun.</p>
+              <div class="dual-btn-group">
+                <button class="btn outline small" onclick="openPlaceModal('canning')">Foto Tree Tunnel (Pagi)</button>
+                <a href="https://www.google.com/maps/dir/Hotel+Chancellor@Orchard/Fort+Canning+Tree+Tunnel" target="_blank" class="btn outline small">Navigasi Rute Maps</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" id="card-d2-2" data-order="2">
+          <div class="card-top">
+            <span class="card-time">08:00 - 12:00 SGT</span>
+            <div class="card-actions">
+              <button class="btn-place-popup" onclick="openPlaceModal('gardens')">Gardens (Pagi)</button>
+              <button class="btn-place-popup" onclick="openPlaceModal('bugis')">Bugis (Siang)</button>
+              <span class="card-type">TOUR RESMI</span>
+              <button class="btn-done-toggle" onclick="toggleRundownDone('card-d2-2')">Selesai</button>
+            </div>
+          </div>
+          <h3 class="card-title">Gardens by the Bay & Bugis Street</h3>
+          <p class="card-desc">Melihat kemegahan Supertree Grove di Gardens by the Bay saat pagi hari, dilanjutkan berbelanja cenderamata siang hari di Bugis Street.</p>
+        </div>
+
+        <div class="card" id="card-d2-3" data-order="3">
+          <div class="card-top">
+            <span class="card-time">12:00 - 13:00 SGT</span>
+            <div class="card-actions">
+              <button class="btn-place-popup" onclick="openPlaceModal('sultan')">Masjid Sultan (Siang)</button>
+              <span class="card-type">IBADAH</span>
+              <button class="btn-done-toggle" onclick="toggleRundownDone('card-d2-3')">Selesai</button>
+            </div>
+          </div>
+          <h3 class="card-title">Sholat di Masjid Sultan (Kampong Gelam)</h3>
+          <p class="card-desc">Ibadah Dzuhur di bawah kubah emas megah Masjid Sultan dan menikmati suasana warisan budaya Melayu-Arab di Arab Street & Haji Lane.</p>
+        </div>
+
+        <div class="card" id="card-d2-4" data-order="4">
+          <div class="card-top">
+            <span class="card-time">13:00 - 17:00 SGT</span>
+            <div class="card-actions">
+              <button class="btn-place-popup" onclick="openPlaceModal('mustafa')">Mustafa (Siang)</button>
+              <button class="btn-place-popup" onclick="openPlaceModal('uss')">USS Globe (Sore)</button>
+              <span class="card-type">TOUR RESMI</span>
+              <button class="btn-done-toggle" onclick="toggleRundownDone('card-d2-4')">Selesai</button>
+            </div>
+          </div>
+          <h3 class="card-title">Mustafa Centre & Sentosa (Universal Studios Spot)</h3>
+          <p class="card-desc">Belanja parfum/cokelat siang hari di Mustafa Little India, lalu sore harinya ke Pulau Sentosa untuk foto spot globe Universal Studios Singapore.</p>
+        </div>
+
+        <!-- FREE TIME DAY 2 MALAM WITH DUAL OPTION -->
+        <div class="card highlight" id="card-d2-5" data-order="5">
+          <div class="card-top">
+            <span class="card-time">19:00 - 23:00 SGT</span>
+            <div class="card-actions">
+              <button class="btn-place-popup" onclick="openPlaceModal('laupasat')">Lau Pa Sat (Malam)</button>
+              <span class="card-type free">FREE TIME MALAM</span>
+              <button class="btn-done-toggle" onclick="toggleRundownDone('card-d2-5')">Selesai</button>
+            </div>
+          </div>
+          <h3 class="card-title">Pilihan Malam Hari (Setelah Tur Rombongan)</h3>
+          <p class="card-desc">Tiba kembali di hotel pukul 19:00 dan sudah makan malam. Waktu bebas panjang:</p>
+          
+          <div class="dual-option-box">
+            <div class="dual-nav">
+              <button class="dual-btn active" onclick="switchDualOption('d2-night', 'satay', this)">Opsi A: Satay Street (Malam)</button>
+              <button class="dual-btn" onclick="switchDualOption('d2-night', 'barrage', this)">Opsi B: Marina Barrage (Malam)</button>
+            </div>
+
+            <div id="d2-night-satay" class="dual-content">
+              <div class="dual-content-title">Satay Street Lau Pa Sat & Clarke Quay Night Walk</div>
+              <div class="dual-spec">
+                <span>Waktu: Malam Hari (19:30+)</span>
+                <span>Moda: MRT Red Line (Somerset ➡️ Raffles Place 6 mnt)</span>
+              </div>
+              <p class="dual-content-desc">Makan sate outdoor berasap di Boon Tat Street yang ditutup khusus di malam hari berlatar gedung tinggi CBD. Lanjut jalan kaki santai di tepian Singapore River menyusuri Clarke Quay.</p>
+              <div class="dual-btn-group">
+                <button class="btn outline small" onclick="openPlaceModal('laupasat')">Foto Lau Pa Sat (Malam)</button>
+                <a href="https://www.google.com/maps/search/Lau+Pa+Sat+Singapore" target="_blank" class="btn outline small">Buka di Maps</a>
+              </div>
+            </div>
+
+            <div id="d2-night-barrage" class="dual-content" style="display: none;">
+              <div class="dual-content-title">Marina Barrage Green Roof & Bay East Garden (Malam)</div>
+              <div class="dual-spec">
+                <span>Waktu: Malam Hari</span>
+                <span>Moda: MRT Brown Line (TEL) ke Gardens by the Bay</span>
+              </div>
+              <p class="dual-content-desc">Duduk santai di atap padang rumput hijau luas Marina Barrage. Menikmati semilir angin laut malam dan pemandangan lampu-lampu gemerlap Marina Bay Sands dari seberang teluk.</p>
+              <div class="dual-btn-group">
+                <button class="btn outline small" onclick="openPlaceModal('barrage')">Foto Marina Barrage (Malam)</button>
+                <a href="https://www.google.com/maps/search/Marina+Barrage+Singapore" target="_blank" class="btn outline small">Buka di Maps</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- DAY 3 CONTAINER -->
+      <div id="day-3-content" class="timeline-container" style="display: none;">
+        
+        <!-- FREE TIME DAY 3 PAGI WITH DUAL OPTION (5 JAM GOLDEN TIME) -->
+        <div class="card highlight" id="card-d3-1" data-order="1">
+          <div class="card-top">
+            <span class="card-time">06:00 - 10:30 SGT</span>
+            <div class="card-actions">
+              <button class="btn-place-popup" onclick="openPlaceModal('ridges')">Henderson Waves (Pagi)</button>
+              <span class="card-type free">5 JAM GOLDEN TIME</span>
+              <button class="btn-done-toggle" onclick="toggleRundownDone('card-d3-1')">Selesai</button>
+            </div>
+          </div>
+          <h3 class="card-title">Pilihan Utama Pagi (Check-out Jam 11:00)</h3>
+          <p class="card-desc">Agenda resmi: <strong>06:00–11:00 Sarapan Hotel & Acara Bebas</strong>. Waktu paling leluasa untuk eksplorasi:</p>
+          
+          <div class="dual-option-box">
+            <div class="dual-nav">
+              <button class="dual-btn active" onclick="switchDualOption('d3-gold', 'ridges', this)">Opsi A: Kanopi Hutan 36m (Pagi)</button>
+              <button class="dual-btn" onclick="switchDualOption('d3-gold', 'marinabay', this)">Opsi B: Sunrise Waterfront (Pagi)</button>
+            </div>
+
+            <div id="d3-gold-ridges" class="dual-content">
+              <div class="dual-content-title">The Southern Ridges & Henderson Waves Canopy Walk (Pagi)</div>
+              <div class="dual-spec">
+                <span>Waktu: Pagi Emas (06:30)</span>
+                <span>Jalur: 7.8 km (Hutan Rimba)</span>
+                <span>Moda: MRT Dhoby Ghaut (NEL)</span>
+              </div>
+              <p class="dual-content-desc">Jalan / trail run pagi di jembatan kayu meliuk tertinggi Singapura (Henderson Waves) melayang 36 meter di pucuk pohon hutan. Udara pagi sangat sejuk dengan pemandangan bukit dan laut.</p>
+              <div class="dual-btn-group">
+                <button class="btn outline small" onclick="openPlaceModal('ridges')">Foto Henderson Waves (Pagi)</button>
+                <a href="https://www.google.com/maps/dir/Hotel+Chancellor@Orchard/Henderson+Waves" target="_blank" class="btn outline small">Buka Navigasi Maps</a>
+              </div>
+            </div>
+
+            <div id="d3-gold-marinabay" class="dual-content" style="display: none;">
+              <div class="dual-content-title">Marina Bay Sunrise Loop & Singapore River (8.5 km)</div>
+              <div class="dual-spec">
+                <span>Waktu: Sunrise Pagi (06:15)</span>
+                <span>Jarak Lari: 8.5 km (Datar)</span>
+                <span>Moda Pulang: MRT Bayfront</span>
+              </div>
+              <p class="dual-content-desc">Lari pagi dari hotel menyusuri sungai Clarke Quay tembus ke teluk Marina Bay saat matahari terbit keemasan di balik Marina Bay Sands. Suasana teluk masih tenang dan sepi.</p>
+              <div class="dual-btn-group">
+                <button class="btn outline small" onclick="openPlaceModal('marinabay_run')">Foto Sunrise Bay (Pagi)</button>
+                <a href="https://www.google.com/maps/dir/Hotel+Chancellor@Orchard/Marina+Bay+Sands" target="_blank" class="btn outline small">Buka Navigasi Maps</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" id="card-d3-2" data-order="2">
+          <div class="card-top">
+            <span class="card-time">11:00 - 12:00 SGT</span>
+            <div class="card-actions">
+              <span class="card-type">CHECK OUT</span>
+              <button class="btn-done-toggle" onclick="toggleRundownDone('card-d3-2')">Selesai</button>
+            </div>
+          </div>
+          <h3 class="card-title">Check Out Hotel Chancellor@Orchard</h3>
+          <p class="card-desc">Bawa seluruh koper dan barang bawaan ke lobby. Pastikan berat koper check-in tidak melebihi 10 kg.</p>
+        </div>
+
+        <div class="card highlight" id="card-d3-3" data-order="3">
+          <div class="card-top">
+            <span class="card-time">13:00 - 14:00 SGT</span>
+            <div class="card-actions">
+              <button class="btn-place-popup" onclick="openPlaceModal('smrt')">SMRT Info (Siang)</button>
+              <span class="card-type">BENCHMARKING</span>
+              <button class="btn-done-toggle" onclick="toggleRundownDone('card-d3-3')">Selesai</button>
+            </div>
+          </div>
+          <h3 class="card-title">Benchmarking Stasiun SMRT Singapore</h3>
+          <p class="card-desc">Agenda utama: mempelajari best practices manajemen stasiun SMRT, crowd control, standar kebersihan perkeretaapian, dan fasilitas penumpang siang hari.</p>
+        </div>
+
+        <div class="card" id="card-d3-4" data-order="4">
+          <div class="card-top">
+            <span class="card-time">14:00 - 21:00 SGT</span>
+            <div class="card-actions">
+              <button class="btn-place-popup" onclick="openPlaceModal('jewel')">Jewel Changi (Sore)</button>
+              <span class="card-type">JEWEL & FLIGHT</span>
+              <button class="btn-done-toggle" onclick="toggleRundownDone('card-d3-4')">Selesai</button>
+            </div>
+          </div>
+          <h3 class="card-title">Jewel Changi Airport ✈️ Penerbangan Jakarta</h3>
+          <p class="card-desc">Melihat air terjun megah Rain Vortex Jewel Changi di sore/senja hari, makan malam, dan proses boarding Citilink menuju Jakarta pukul 21:00 SGT.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: PETA TRANSIT & JADWAL ==================== -->
+    <section id="pane-transit" class="tab-pane">
+      <div style="margin-bottom: 18px;">
+        <h2 style="font-family: 'Manrope', sans-serif; font-size: 18px; font-weight: 800; margin-bottom: 4px;">Peta Rute Integrasi Kereta (MRT/LRT) & Bus</h2>
+        <p style="font-size: 13px; color: var(--muted);">Navigasi seluruh jalur rel dan bus dari Hotel Chancellor@Orchard dengan Singapore Tourist Pass (STP).</p>
+      </div>
+
+      <!-- VISUAL TRANSIT MAP BOX -->
+      <div class="transit-map-box">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="font-size: 12px; font-weight: 700; color: #efeee8; text-transform: uppercase; letter-spacing: 0.05em;">Peta Jalur Rel Singapura (LTA Network)</span>
+          <span class="badge-stp">OFFICIAL SCHEMATIC</span>
+        </div>
+
+        <div class="map-preview-wrap" onclick="openLightbox('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80', 'Peta Sistem Jaringan MRT / LRT Singapura (LTA Official)', 'TRANSIT')">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" 
+               alt="Peta Sistem Transit Singapura" 
+               class="map-preview-img"
+               onerror="this.src='https://images.unsplash.com/photo-1496939376851-89342e90adcd?auto=format&fit=crop&w=1200&q=80'">
+          <div class="photo-zoom-hint">⛶ Klik untuk Layar Penuh</div>
+        </div>
+
+        <!-- LINE PILLS GUIDE -->
+        <div class="transit-line-pill-grid">
+          <div class="line-pill">
+            <div class="line-color-bar" style="background: var(--mrt-ns);"></div>
+            <div class="line-pill-text">
+              <span class="line-pill-name">North-South</span>
+              <span class="line-pill-code">Somerset (NS23)</span>
+            </div>
+          </div>
+          <div class="line-pill">
+            <div class="line-color-bar" style="background: var(--mrt-ne);"></div>
+            <div class="line-pill-text">
+              <span class="line-pill-name">North-East</span>
+              <span class="line-pill-code">Dhoby Ghaut (NE6)</span>
+            </div>
+          </div>
+          <div class="line-pill">
+            <div class="line-color-bar" style="background: var(--mrt-dt);"></div>
+            <div class="line-pill-text">
+              <span class="line-pill-name">Downtown</span>
+              <span class="line-pill-code">Bugis (DT14)</span>
+            </div>
+          </div>
+          <div class="line-pill">
+            <div class="line-color-bar" style="background: var(--mrt-te);"></div>
+            <div class="line-pill-text">
+              <span class="line-pill-name">Thomson-East</span>
+              <span class="line-pill-code">Napier (TE12)</span>
+            </div>
+          </div>
+          <div class="line-pill">
+            <div class="line-color-bar" style="background: var(--mrt-ew);"></div>
+            <div class="line-pill-text">
+              <span class="line-pill-name">East-West</span>
+              <span class="line-pill-code">Changi (CG2)</span>
+            </div>
+          </div>
+          <div class="line-pill">
+            <div class="line-color-bar" style="background: var(--mrt-cc);"></div>
+            <div class="line-pill-text">
+              <span class="line-pill-name">Circle Line</span>
+              <span class="line-pill-code">HarbourFront (CC29)</span>
+            </div>
+          </div>
+        </div>
+
+        <a href="https://www.lta.gov.sg/content/dam/ltagov/getting_around/public_transport/rail_network/image/system-map.jpg" target="_blank" class="btn outline" style="width: 100%; font-size: 12px; padding: 8px;">
+          Buka Peta Resolusi Tinggi LTA Official
+        </a>
+      </div>
+
+      <!-- HUB INFO -->
+      <div class="card highlight" style="margin-top: 18px;">
+        <div class="card-top">
+          <span class="card-time">HUB PUSAT KEBERANGKATAN</span>
+          <span class="card-type free">STP UNLIMITED</span>
+        </div>
+        <h3 class="card-title">Titik Akses Transportasi dari Hotel Chancellor</h3>
+        <p class="card-desc">Dari lobi hotel (28 Cavenagh Rd), Anda memiliki 3 akses transit utama dalam jarak jalan kaki singkat:</p>
+        
+        <table class="timetable-table">
+          <thead>
+            <tr>
+              <th>Stasiun / Halte</th>
+              <th>Jarak Jalan</th>
+              <th>Layanan & Jalur</th>
+              <th>Kereta / Bus Pertama</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>MRT Somerset (NS23)</strong></td>
+              <td>450m (6 mnt)</td>
+              <td><span class="transit-badge badge-mrt-ns">NSL</span> North-South Line</td>
+              <td>06:08 (Sabtu) / 06:33 (Minggu)</td>
+            </tr>
+            <tr>
+              <td><strong>MRT Dhoby Ghaut (NS24/NE6/CC1)</strong></td>
+              <td>650m (8 mnt)</td>
+              <td><span class="transit-badge badge-mrt-ne">NEL</span> <span class="transit-badge badge-mrt-ns">NSL</span> <span class="transit-badge badge-mrt-cc">CCL</span></td>
+              <td>06:01 (Sabtu) / 06:22 (Minggu)</td>
+            </tr>
+            <tr>
+              <td><strong>Halte Bus Opp Somerset Stn (08138)</strong></td>
+              <td>280m (3 mnt)</td>
+              <td><span class="transit-badge badge-bus">BUS 7</span> <span class="transit-badge badge-bus">106</span> <span class="transit-badge badge-bus">174</span></td>
+              <td>05:40 (Setiap Hari)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- DESTINATION 1: BOTANIC GARDENS -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-time">FREE TIME • DAY 2 / DAY 3 PAGI</span>
+          <div class="card-actions">
+            <button class="btn-place-popup" onclick="openPlaceModal('botanic')">Info & Foto</button>
+            <span class="card-type">NATURE RUN</span>
+          </div>
+        </div>
+        <h3 class="card-title">Menuju Singapore Botanic Gardens (UNESCO)</h3>
+        <p class="card-desc">Taman buka pukul 05:00 – 24:00 (Gratis). Trek lari pagi dan hutan hujan primer alami.</p>
+        
+        <table class="timetable-table">
+          <thead>
+            <tr>
+              <th>Moda</th>
+              <th>Rute & Nomor Layanan</th>
+              <th>Frekuensi</th>
+              <th>Waktu Tempuh</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="transit-badge badge-bus">BUS (Terbaik)</span></td>
+              <td>Naik <strong>Bus 7 atau 106</strong> dari Halte Opp Somerset Stn (08138) langsung turun di <em>Opp Singapore Botanic Gardens (Tanglin Gate)</em>.</td>
+              <td><span class="freq-tag">6 - 8 menit</span></td>
+              <td>11 - 13 menit</td>
+            </tr>
+            <tr>
+              <td><span class="transit-badge badge-mrt-te">MRT</span></td>
+              <td>Dari MRT Somerset naik 1 stasiun ke Orchard ➡️ Pindah ke Thomson-East Coast Line (Brown) ➡️ Turun di <strong>Napier MRT (TE12) Exit 1</strong>.</td>
+              <td><span class="freq-tag">4 - 5 menit</span></td>
+              <td>14 menit</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- DESTINATION 2: SOUTHERN RIDGES -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-time">FREE TIME • DAY 3 PAGI (06:00 - 10:30)</span>
+          <div class="card-actions">
+            <button class="btn-place-popup" onclick="openPlaceModal('ridges')">Info & Foto</button>
+            <span class="card-type">CANOPY TRAIL</span>
+          </div>
+        </div>
+        <h3 class="card-title">Menuju Southern Ridges & Henderson Waves</h3>
+        <p class="card-desc">Jembatan kayu meliuk di kanopi hutan 36m di atas tanah. Udara pagi segar dan panorama bukit hutan.</p>
+        
+        <table class="timetable-table">
+          <thead>
+            <tr>
+              <th>Tahap Perjalanan</th>
+              <th>Moda & Jalur</th>
+              <th>Detail Stasiun / Rute</th>
+              <th>Estimasi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Pergi (Outbound)</strong></td>
+              <td><span class="transit-badge badge-mrt-ne">MRT Ungu (NEL)</span></td>
+              <td>Jalan ke MRT Dhoby Ghaut ➡️ Naik NEL ke arah <strong>HarbourFront (NE1)</strong> (5 stasiun). Keluar Exit D langsung masuk <strong>Marang Trail</strong> menuju puncak Mount Faber & Henderson Waves.</td>
+              <td>12 mnt MRT + 15 mnt hike</td>
+            </tr>
+            <tr>
+              <td><strong>Pulang (Return)</strong></td>
+              <td><span class="transit-badge badge-bus">BUS 143 / 166</span></td>
+              <td>Di ujung Forest Walk (Alexandra Arch), naik Bus 143 atau 166 dari halte <em>Aft Alexandra Rd</em> langsung kembali ke Orchard Road (Halte Orchard Plaza, depan hotel).</td>
+              <td>18 menit</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- DESTINATION 3: LAU PA SAT & CLARKE QUAY -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-time">FREE TIME • DAY 2 MALAM (19:00 - 23:00)</span>
+          <div class="card-actions">
+            <button class="btn-place-popup" onclick="openPlaceModal('laupasat')">Info & Foto</button>
+            <span class="card-type">NIGHT CULINARY</span>
+          </div>
+        </div>
+        <h3 class="card-title">Menuju Satay Street Lau Pa Sat & Singapore River</h3>
+        <p class="card-desc">Kawasan sate bakar outdoor legendaris di Boon Tat Street dan jalan santai tepian sungai Clarke Quay di malam hari.</p>
+        
+        <table class="timetable-table">
+          <thead>
+            <tr>
+              <th>Rute</th>
+              <th>Moda Transportasi</th>
+              <th>Instruksi Stasiun</th>
+              <th>Frekuensi Malam</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Pergi ke Lau Pa Sat</strong></td>
+              <td><span class="transit-badge badge-mrt-ns">MRT Merah (NSL)</span></td>
+              <td>Dari MRT Somerset naik 3 stasiun ke <strong>Raffles Place MRT (NS26)</strong>. Keluar Exit I, jalan kaki 280 meter ke Lau Pa Sat.</td>
+              <td><span class="freq-tag">3 - 4 menit</span> (Tempuh 6 mnt)</td>
+            </tr>
+            <tr>
+              <td><strong>Pulang dari Clarke Quay</strong></td>
+              <td><span class="transit-badge badge-mrt-ne">MRT Ungu (NEL)</span></td>
+              <td>Dari Clarke Quay MRT (NE5) naik 2 stasiun ke <strong>Dhoby Ghaut MRT</strong>, lanjut jalan 8 menit ke hotel.</td>
+              <td><span class="freq-tag">Kereta Terakhir: 00:06 SGT</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: CHECKLIST LENGKAP ==================== -->
+    <section id="pane-packing" class="tab-pane">
+      <div class="meter-box">
+        <div class="meter-row">
+          <span class="meter-text">Checklist Perlengkapan 3D2N</span>
+          <span class="meter-count" id="pack-count">0 / 0 Selesai</span>
+        </div>
+        <div class="meter-bar">
+          <div class="meter-fill" id="pack-bar"></div>
+        </div>
+        <p style="font-size: 11px; color: var(--muted);">Batas Citilink: Check-in 10 kg maks, Kabin 7 kg. Sediakan sisa ruang koper 3 kg untuk oleh-oleh.</p>
+      </div>
+
+      <!-- 1. DOKUMEN & FINANSIAL -->
+      <div class="check-group">
+        <div class="check-category">1. Dokumen & Finansial Wajib</div>
+        
+        <label class="check-row">
+          <input type="checkbox" data-id="p-paspor" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Paspor Asli (Nomor: Y0023939)</div>
+            <div class="check-sub">Masa berlaku s.d 2031. Wajib di tas selempang kabin!</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-ktp" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">KTP Asli</div>
+            <div class="check-sub">Untuk check-in penerbangan domestik Citilink CGK - Batam.</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-myica" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Barcode SG Arrival Card (MyICA Mobile)</div>
+            <div class="check-sub">Isi formulir kedatangan di aplikasi MyICA 3 hari sebelum tiba di Singapura.</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-pass" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Kartu Fisik Singapore Tourist Pass (STP)</div>
+            <div class="check-sub">Untuk tap gratis tanpa batas di MRT, LRT, dan Bus reguler.</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-duit" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Uang Tunai SGD & Kartu Debit/Kredit Contactless</div>
+            <div class="check-sub">Bawa pecahan kecil $5/$10/$50 untuk sate Lau Pa Sat + kartu Visa/Mastercard.</div>
+          </div>
+        </label>
+      </div>
+
+      <!-- 2. PAKAIAN DINAS & RESMI -->
+      <div class="check-group">
+        <div class="check-category">2. Pakaian Dinas & Kegiatan Resmi</div>
+        
+        <label class="check-row">
+          <input type="checkbox" data-id="p-batik" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Kemeja Batik Resmi <span class="badge-qty">1 PCS • WAJIB</span></div>
+            <div class="check-sub">Wajib dipakai saat meeting pembahasan & foto resmi di Batam (Day 1 jam 09:30).</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-celana-dinas" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Celana Panjang Bahan / Chino Rapi Gelap <span class="badge-qty">1-2 PCS</span></div>
+            <div class="check-sub">Cocok untuk meeting resmi di Batam dan tetap fleksibel dipakai jalan tour.</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-idcard" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">ID Card LRT Jabodebek & Lanyard Dinas</div>
+            <div class="check-sub">Tanda pengenal resmi selama benchmarking SMRT dan meeting KAI Services.</div>
+          </div>
+        </label>
+      </div>
+
+      <!-- 3. PAKAIAN MAIN & TOUR -->
+      <div class="check-group">
+        <div class="check-category">3. Pakaian Main, Santai & Tour</div>
+        
+        <label class="check-row">
+          <input type="checkbox" data-id="p-kaos-main" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Kaos Kasual Santai / Polo Shirt <span class="badge-qty">3-4 PCS</span></div>
+            <div class="check-sub">Untuk tour Bugis, Sentosa Universal Studios, Mustafa, dan Jewel Changi.</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-celana-main" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Celana Main Santai (Chino Pendek / Katun Casual) <span class="badge-qty">2 PCS</span></div>
+            <div class="check-sub">Nyaman untuk jalan kaki belasan ribu langkah di cuaca tropis Singapura.</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-jacket" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Jaket Ringan / Windbreaker <span class="badge-qty">1 PCS</span></div>
+            <div class="check-sub">Suhu kabin pesawat Citilink, ferry ber-AC, dan MRT cenderung dingin.</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-underwear" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Pakaian Dalam & Kaos Kaki Harian <span class="badge-qty">4-5 SET</span></div>
+            <div class="check-sub">Bawa ekstra untuk cadangan ganti setelah banyak berkeringat.</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-kacamata" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Kacamata Hitam (*Sunglasses*) & Topi Kasual</div>
+            <div class="check-sub">Penting untuk jalan santai siang hari di Marina Bay, Merlion, dan Sentosa.</div>
+          </div>
+        </label>
+      </div>
+
+      <!-- 4. PERLENGKAPAN LARI & ALAM -->
+      <div class="check-group">
+        <div class="check-category">4. Perlengkapan Lari & Wisata Alam</div>
+        
+        <label class="check-row">
+          <input type="checkbox" data-id="p-shoes" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Sepatu Lari (Dipakai Langsung Saat Berangkat!)</div>
+            <div class="check-sub">💡 Hemat beban koper 1.2 kg. Bisa dipakai multifungsi untuk lari dan jalan tour.</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-dryfit" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Baju Jersey Dry-Fit Lari <span class="badge-qty">3 PCS</span></div>
+            <div class="check-sub">Bahan poliester enteng, tidak makan tempat, dan cepat kering jika dicuci di hotel.</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-run-shorts" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Celana Pendek Lari (*Running Shorts*) <span class="badge-qty">2 PCS</span></div>
+            <div class="check-sub">Pilih yang berfuring kompresi dan memiliki kantong ritsleting.</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-run-socks" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Kaos Kaki Lari Anti-Blister <span class="badge-qty">3 PASANG</span></div>
+            <div class="check-sub">Mencegah lecet saat lari pagi dan jalan puluhan ribu langkah seharian.</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-belt" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Running Belt / Flipbelt / Tas Pinggang Tipis</div>
+            <div class="check-sub">Wajib untuk membawa HP, kartu kunci kamar hotel, dan Tourist Pass saat lari.</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-drybag" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Ziplock / Kantong Kedap Baju Basah Keringat</div>
+            <div class="check-sub">Sangat penting agar baju basah sehabis lari sore tidak mencemari koper.</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-watch" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Smartwatch GPS Tracker & TWS Earbuds Lari</div>
+            <div class="check-sub">Jangan lupa bawa kabel charger smartwatch masing-masing.</div>
+          </div>
+        </label>
+      </div>
+
+      <!-- 5. ELEKTRONIK & GADGET -->
+      <div class="check-group">
+        <div class="check-category">5. Elektronik & Perangkat</div>
+        
+        <label class="check-row">
+          <input type="checkbox" data-id="p-adapter" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Adapter Colokan Kaki 3 (Tipe G Inggris / SG)</div>
+            <div class="check-sub">Wajib untuk mengisi daya HP/gadget di Hotel Chancellor@Orchard.</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-powerbank" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Powerbank (Maks. 20.000 mAh) di Tas Kabin</div>
+            <div class="check-sub">⚠️ DILARANG dimasukkan ke koper bagasi check-in Citilink!</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-roaming" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Paket Data Roaming Internasional / eSIM Aktif</div>
+            <div class="check-sub">Pastikan WhatsApp selalu aktif karena koordinasi panitia via WA Group.</div>
+          </div>
+        </label>
+      </div>
+
+      <!-- 6. KESEHATAN & TOILETRIES -->
+      <div class="check-group">
+        <div class="check-category">6. Kesehatan & Toiletries</div>
+        
+        <label class="check-row">
+          <input type="checkbox" data-id="p-sunscreen" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Sunscreen / Tabir Surya SPF 50+ & Deodorant</div>
+            <div class="check-sub">Perlindungan kulit dari terik matahari tropis saat lari dan tur outdoor.</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-koyo" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Koyo Otot (Salonpas) / Gel Pereda Pegal (Counterpain)</div>
+            <div class="check-sub">Penyelamat betis dan telapak kaki di malam hari setelah aktivitas padat.</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-meds" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Obat Pribadi (Paracetamol, Obat Maag, Flu, Minyak Angin)</div>
+            <div class="check-sub">Jaga-jaga kondisi tubuh jika kelelahan akibat jadwal subuh.</div>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" data-id="p-toiletries" onchange="toggleCheck(this)">
+          <div>
+            <div class="check-title">Peralatan Mandi Travel Pack (< 100ml)</div>
+            <div class="check-sub">Sabun muka, sikat gigi & odol kecil (hotel SG kadang eco-friendly).</div>
+          </div>
+        </label>
+      </div>
+
+      <button class="btn outline block" onclick="resetChecklist()">Reset Semua Status Centang</button>
+    </section>
+
+    <!-- ==================== TAB 4: RUTE LARI & ALAM ==================== -->
+    <section id="pane-routes" class="tab-pane">
+      <div style="margin-bottom: 18px;">
+        <h2 style="font-family: 'Manrope', sans-serif; font-size: 18px; font-weight: 800; margin-bottom: 4px;">Kurasi Rute Lari & Wisata Alam</h2>
+        <p style="font-size: 13px; color: var(--muted);">Dirancang khusus untuk pelari yang menginap di Hotel Chancellor@Orchard.</p>
+      </div>
+
+      <!-- RUTE 1 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-time">5.2 KM • +45M ELEVASI</span>
+          <div class="card-actions">
+            <button class="btn-place-popup" onclick="openPlaceModal('canning')">Info & Foto (Pagi)</button>
+            <span class="card-type">DAY 2 PAGI</span>
+          </div>
+        </div>
+        <h3 class="card-title">Fort Canning Heritage & Tree Tunnel Loop</h3>
+        <p class="card-desc">Rute terdekat tanpa naik kendaraan umum. Dari hotel melewati Istana Park langsung menanjak ke bukit Fort Canning. Spot utama: lorong akar pohon Tree Tunnel (masih sepi jam 06:30 pagi!), Sang Nila Utama Garden, dan Spice Garden.</p>
+        <div style="margin-top: 12px; display: flex; gap: 8px;">
+          <button class="btn outline" style="flex: 1;" onclick="openPlaceModal('canning')">Lihat Foto Tempat</button>
+          <a href="https://www.google.com/maps/dir/Hotel+Chancellor@Orchard/Fort+Canning+Tree+Tunnel" target="_blank" class="btn" style="flex: 1;">Navigasi Maps</a>
+        </div>
+      </div>
+
+      <!-- RUTE 2 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-time">6.5 KM • FLAT • UNESCO</span>
+          <div class="card-actions">
+            <button class="btn-place-popup" onclick="openPlaceModal('botanic')">Info & Foto (Pagi)</button>
+            <span class="card-type">DAY 2 / DAY 3</span>
+          </div>
+        </div>
+        <h3 class="card-title">Singapore Botanic Gardens Rainforest Trail</h3>
+        <p class="card-desc">Cagar alam berusia 165 tahun dengan sisa hutan hujan primer asli di tengah kota. Rute mengitari Swan Lake, Symphony Lake, dan The Learning Forest dengan pohon purba setinggi 50 meter di pagi hari.</p>
+        <div style="margin-top: 12px; display: flex; gap: 8px;">
+          <button class="btn outline" style="flex: 1;" onclick="openPlaceModal('botanic')">Lihat Foto Tempat</button>
+          <a href="https://www.google.com/maps/dir/Hotel+Chancellor@Orchard/Singapore+Botanic+Gardens" target="_blank" class="btn" style="flex: 1;">Navigasi Maps</a>
+        </div>
+      </div>
+
+      <!-- RUTE 3 -->
+      <div class="card highlight">
+        <div class="card-top">
+          <span class="card-time">7.8 KM • KANOPI HUTAN 36M</span>
+          <div class="card-actions">
+            <button class="btn-place-popup" onclick="openPlaceModal('ridges')">Info & Foto (Pagi)</button>
+            <span class="card-type free">REKOMENDASI UTAMA</span>
+          </div>
+        </div>
+        <h3 class="card-title">The Southern Ridges & Henderson Waves Canopy</h3>
+        <p class="card-desc">Jalur jembatan kayu tertinggi meliuk di pucuk pohon hutan sekunder Telok Blangah. Udara pagi sejuk, kicauan burung liar, dan pemandangan laut dari atas perbukitan.</p>
+        <div style="margin-top: 12px; display: flex; gap: 8px;">
+          <button class="btn outline" style="flex: 1;" onclick="openPlaceModal('ridges')">Lihat Foto Tempat</button>
+          <a href="https://www.google.com/maps/dir/Hotel+Chancellor@Orchard/Henderson+Waves" target="_blank" class="btn" style="flex: 1;">Navigasi Maps</a>
+        </div>
+      </div>
+
+      <!-- RUTE 4 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-time">8.5 KM • WATERFRONT LOOP</span>
+          <div class="card-actions">
+            <button class="btn-place-popup" onclick="openPlaceModal('marinabay_run')">Info & Foto (Pagi)</button>
+            <span class="card-type">SUNRISE</span>
+          </div>
+        </div>
+        <h3 class="card-title">Marina Bay & Singapore River Loop</h3>
+        <p class="card-desc">Lari pagi menyusuri tepian sungai dari Clarke Quay tembus ke teluk Marina Bay Sands, melewati Helix Bridge dan Merlion saat matahari terbit keemasan. Pulang cukup naik MRT Bayfront ke Somerset (10 menit).</p>
+        <div style="margin-top: 12px; display: flex; gap: 8px;">
+          <button class="btn outline" style="flex: 1;" onclick="openPlaceModal('marinabay_run')">Lihat Foto Tempat</button>
+          <a href="https://www.google.com/maps/dir/Hotel+Chancellor@Orchard/Marina+Bay+Sands" target="_blank" class="btn" style="flex: 1;">Navigasi Maps</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 5: PANDUAN & BANTUAN ==================== -->
+    <section id="pane-survival" class="tab-pane">
+      <div style="margin-bottom: 18px;">
+        <h2 style="font-family: 'Manrope', sans-serif; font-size: 18px; font-weight: 800; margin-bottom: 4px;">Panduan Lapangan & Bantuan</h2>
+        <p style="font-size: 13px; color: var(--muted);">Informasi darurat, alamat hotel untuk taksi, dan regulasi penting Singapura.</p>
+      </div>
+
+      <!-- TAXI CARD -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-time">KARTU ALAMAT HOTEL</span>
+          <span class="card-type">TAKSI / GRAB</span>
+        </div>
+        <p style="font-size: 12px; color: var(--muted);">Tunjukkan teks ini ke pengemudi jika Anda tersesat:</p>
+        <div style="background: var(--panel-dark); padding: 14px; border-radius: 6px; border: 1px solid var(--line); margin: 10px 0; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); line-height: 1.6;" id="taxi-text">
+Hotel Chancellor@Orchard
+28 Cavenagh Road, Singapore 229635
+(Behind Orchard Point / Somerset MRT)
+乌节总理酒店 / 28 卡文纳路
+        </div>
+        <button class="btn outline" style="width: 100%;" onclick="copyTaxiText()">Salin Alamat Hotel</button>
+      </div>
+
+      <!-- EO CONTACT -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-time">PANITIA EO</span>
+          <span class="card-type">KAI SERVICES</span>
+        </div>
+        <h3 class="card-title">Firman (Event Organizer)</h3>
+        <p class="card-desc" style="font-family: 'JetBrains Mono', monospace; color: var(--accent); font-size: 14px;">+62 877-8618-4800</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px;">
+          <a href="tel:087786184800" class="btn outline">Telepon</a>
+          <a href="https://wa.me/6287786184800" target="_blank" class="btn">WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- STRICT RULES & FINES -->
+      <div class="card" style="border-color: #633333;">
+        <div class="card-top">
+          <span class="card-time" style="color: #fca5a5;">REGULASI HUKUM SINGAPURA</span>
+          <span class="card-type" style="border-color: #633333; color: #fca5a5;">DENDA KETAT</span>
+        </div>
+        <ul style="padding-left: 18px; font-size: 12px; color: var(--muted); line-height: 1.8;">
+          <li><strong style="color: #efeee8;">Rokok & Vape:</strong> Dilarang keras dibawa masuk Singapura (Denda hingga $2.000+).</li>
+          <li><strong style="color: #efeee8;">Makan/Minum di MRT & Stasiun:</strong> Minum air mineral seteguk pun dilarang di area berbayar (Denda $500).</li>
+          <li><strong style="color: #efeee8;">Menyeberang Jalan (Jaywalking):</strong> Wajib menggunakan penyeberangan resmi (Denda $50).</li>
+          <li><strong style="color: #efeee8;">Permen Karet & Sampah:</strong> Dilarang membuang sampah sembarangan (Denda $1.000).</li>
+        </ul>
+      </div>
+
+      <!-- EMERGENCY NUMBERS -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-time">NOMOR PANGGILAN DARURAT</span>
+          <span class="card-type">SINGAPORE</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px;">
+          <div style="background: var(--panel-dark); padding: 12px; border-radius: 6px; border: 1px solid var(--line);">
+            <div style="font-size: 10px; text-transform: uppercase; color: var(--muted);">Polisi SG</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 700; color: #efeee8;">999</div>
+          </div>
+          <div style="background: var(--panel-dark); padding: 12px; border-radius: 6px; border: 1px solid var(--line);">
+            <div style="font-size: 10px; text-transform: uppercase; color: var(--muted);">Ambulans / Damkar</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 700; color: #efeee8;">995</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- POPUP MODAL (DESTINATION PHOTO & INFO) -->
+  <div id="place-modal" class="modal-overlay" onclick="closePlaceModal(event)">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div class="modal-image-wrap" onclick="openCurrentPhotoLightbox()">
+        <img id="modal-img" alt="Foto Destinasi" class="modal-image" onerror="handleImageError(this)">
+        <span class="photo-time-badge" id="modal-time-badge">WAKTU</span>
+        <div class="photo-controls">
+          <button type="button" class="photo-ctrl-btn" id="modal-fit-btn" onclick="toggleModalFit(event)" title="Ganti mode Pas/Penuh">↕ Mode Pas (Fit)</button>
+          <button type="button" class="photo-ctrl-btn primary" onclick="openCurrentPhotoLightbox(); event.stopPropagation();">⛶ Layar Penuh</button>
+        </div>
+        <button type="button" class="modal-close-btn" onclick="closePlaceModal(); event.stopPropagation();" title="Tutup">✕</button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="modal-category" id="modal-category">KATEGORI</div>
+        <h2 class="modal-title" id="modal-title">Nama Tempat</h2>
+        <p class="modal-desc" id="modal-desc">Deskripsi tempat...</p>
+
+        <div class="modal-section">
+          <div class="modal-sec-title">📸 Spot Foto Terbaik</div>
+          <div class="modal-sec-text" id="modal-photospot">-</div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-sec-title">💡 Tips & Ketentuan Khusus</div>
+          <div class="modal-sec-text" id="modal-tips">-</div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-sec-title">🚆 Akses Transportasi (Tourist Pass)</div>
+          <div class="modal-sec-text" id="modal-transit">-</div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn outline" style="flex: 1;" onclick="closePlaceModal()">Tutup</button>
+          <a id="modal-maps-link" href="#" target="_blank" class="btn" style="flex: 1.5;">Buka di Google Maps</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULLSCREEN LIGHTBOX MODAL (100% UNCROPPED VIEW) -->
+  <div id="lightbox-modal" class="lightbox-overlay" onclick="closeLightbox(event)">
+    <div class="lightbox-box" onclick="event.stopPropagation()">
+      <div class="lightbox-top-bar">
+        <div class="lightbox-title-wrap">
+          <span id="lightbox-badge" class="photo-time-badge" style="position: static;">WAKTU</span>
+          <span id="lightbox-title" class="lightbox-title">Nama Tempat</span>
+        </div>
+        <button type="button" class="lightbox-close-btn" onclick="closeLightbox()">✕ Tutup</button>
+      </div>
+
+      <div class="lightbox-image-stage" id="lightbox-stage" onclick="toggleLightboxZoom()">
+        <img id="lightbox-img" src="" alt="Foto Penuh" class="lightbox-img" onerror="handleImageError(this)">
+      </div>
+
+      <div class="lightbox-bottom-bar">
+        <div class="lightbox-spot-tip" id="lightbox-spot">📸 Spot foto terbaik</div>
+        <div class="lightbox-actions">
+          <span class="lightbox-hint">Klik foto untuk Zoom • ESC untuk Tutup</span>
+          <a id="lightbox-maps-link" href="#" target="_blank" class="btn outline small">Google Maps</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Element -->
+  <div id="toast" class="toast">Notifikasi</div>
+
+  <!-- Bottom Navigation -->
+  <footer class="footer-nav">
+    <div class="nav-inner">
+      <button class="nav-btn active" onclick="setTab('schedule', this)">Rundown</button>
+      <button class="nav-btn" onclick="setTab('transit', this)">Transit</button>
+      <button class="nav-btn" onclick="setTab('packing', this)">Checklist</button>
+      <button class="nav-btn" onclick="setTab('routes', this)">Rute Lari</button>
+      <button class="nav-btn" onclick="setTab('survival', this)">Bantuan</button>
+    </div>
+  </footer>
+
+  <script>
+    // Live Clocks
+    function updateClocks() {
+      const now = new Date();
+      const sgt = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Singapore',
+        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+      }).format(now);
+      const wib = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Jakarta',
+        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+      }).format(now);
+
+      const elSgt = document.getElementById('clock-sgt');
+      const elWib = document.getElementById('clock-wib');
+      if (elSgt) elSgt.textContent = sgt;
+      if (elWib) elWib.textContent = wib;
+    }
+    setInterval(updateClocks, 1000);
+    updateClocks();
+
+    // Tab Navigation
+    function setTab(tabId, elBtn) {
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-item').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+      const pane = document.getElementById('pane-' + tabId);
+      if (pane) pane.classList.add('active');
+
+      document.querySelectorAll(`.tab-item, .nav-btn`).forEach(btn => {
+        if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(tabId)) {
+          btn.classList.add('active');
+        }
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Day Filter in Schedule Tab
+    function switchDay(dayNum, btn) {
+      document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      document.getElementById('day-1-content').style.display = (dayNum === 1) ? 'flex' : 'none';
+      document.getElementById('day-2-content').style.display = (dayNum === 2) ? 'flex' : 'none';
+      document.getElementById('day-3-content').style.display = (dayNum === 3) ? 'flex' : 'none';
+    }
+
+    // Dual Option Switcher in Free Time Cards
+    function switchDualOption(groupId, optionId, btn) {
+      const parent = btn.closest('.dual-option-box');
+      parent.querySelectorAll('.dual-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      parent.querySelectorAll('.dual-content').forEach(c => c.style.display = 'none');
+      const target = document.getElementById(`${groupId}-${optionId}`);
+      if (target) target.style.display = 'block';
+    }
+
+    // AUTHENTIC DESTINATIONS DATABASE (EXACT LOCATION & TIME OF DAY ACCURACY)
+    // AUTHENTIC DESTINATIONS DATABASE (EXACT LOCATION & TIME OF DAY ACCURACY)
+    const DESTINATION_DATA = {
+      'batam': {
+        title: 'Morning Bakery & Pelabuhan Batam Center',
+        timeBadge: '🌅 PAGI / SIANG • 08:30 - 13:30 (WIB)',
+        category: 'Kegiatan Day 1 • Batam',
+        image: 'assets/batam.jpg',
+        fallback: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Pemberhentian sarapan kopi & roti khas Batam (Morning Bakery), dilanjutkan rapat konsinyering resmi berpakaian batik, lalu penyeberangan kapal ferry cepat internasional (Majestic / Sindo Ferry) melalui Pelabuhan Batam Center menuju Singapura.',
+        photoSpot: 'Dermaga kapal ferry Batam Center dan sesi foto rombongan resmi LRT Jabodebek berbaju batik.',
+        tips: 'Pastikan paspor dan tiket boarding ferry dipegang di tangan saat antre imigrasi pelabuhan. Dilarang membawa rokok/vape!',
+        transit: 'Bus rombongan dari Bandara Hang Nadim ke Morning Bakery ➡️ Pelabuhan Batam Center.',
+        mapsUrl: 'https://www.google.com/maps/search/Batam+Centre+Ferry+Terminal'
+      },
+      'merlion': {
+        title: 'Merlion Park & Marina Bay Sands',
+        timeBadge: '🌇 SORE HARI • 15:00 - 18:00 (SGT)',
+        category: 'Ikonik Nasional • Tour Resmi',
+        image: 'assets/merlion.jpg',
+        fallback: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Patung berkepala singa bertubuh ikan setinggi 8,6 meter yang menyemburkan air ke Teluk Marina disinari matahari sore keemasan (golden hour). Simbol resmi Singapura yang melambangkan Kota Singa dan asal-usul Temasek.',
+        photoSpot: 'Dek pandang promenade di depan Merlion menghadap ke arah teluk dan tiga menara Marina Bay Sands.',
+        tips: 'Bawa kacamata hitam karena pantulan sinar matahari sore di lantai marmer putih dermaga cukup silau.',
+        transit: 'MRT Raffles Place (NS26/EW14) Exit H, jalan kaki 400m melewati Fullerton Hotel.',
+        mapsUrl: 'https://www.google.com/maps/search/Merlion+Park+Singapore'
+      },
+      'spectra': {
+        title: 'Spectra - Light & Water Show MBS',
+        timeBadge: '🌙 MALAM HARI • 20:00 - 20:30 (SGT)',
+        category: 'Pertunjukan Malam • Tour Resmi',
+        image: 'assets/spectra.jpg',
+        fallback: 'https://images.unsplash.com/photo-1496939376851-89342e90adcd?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Pertunjukan multimedia spektakuler di malam hari yang memadukan air mancur menari puluhan meter, tembakan laser warna-warni dari atap Marina Bay Sands, efek semburan kabut lava, dan simfoni orkestra di tepi Marina Bay.',
+        photoSpot: 'Event Plaza kayu di depan The Shoppes at Marina Bay Sands untuk sudut simetris tepat di depan semburan laser air mancur.',
+        tips: 'Show mulai tepat waktu pukul 20:00. Datang 10 menit lebih awal untuk dapat posisi duduk kayu paling depan.',
+        transit: 'MRT Bayfront (DT16/CE1) Exit D langsung tembus ke Event Plaza tepi teluk.',
+        mapsUrl: 'https://www.google.com/maps/search/Spectra+Light+Water+Show+Marina+Bay+Sands'
+      },
+      'emerald': {
+        title: 'Emerald Hill Road (Orchard Heritage)',
+        timeBadge: '🌙 MALAM HARI • 20:30 - 22:30 (SGT)',
+        category: 'Heritage Walk • Free Time Malam',
+        image: 'assets/emerald.jpg',
+        fallback: 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Kompleks perumahan bersejarah bergaya Chinese Baroque dan Peranakan klasik di samping Orchard Road. Suasana malam hari sangat syahdu dengan lentera temaram, jendela kayu antik, dan jalanan berbatu yang tenang. Hanya 350m dari Hotel Chancellor.',
+        photoSpot: 'Di depan gerbang rumah kayu ukir tradisional berpintu ganda dengan ubin keramik warna-warni vintage dan lentera gantung.',
+        tips: 'Jaraknya hanya 5 menit jalan kaki dari Hotel Chancellor. Sangat pas untuk jalan malam santai sebelum tidur.',
+        transit: 'Jalan kaki langsung dari Hotel Chancellor lewat Cavenagh Road ke seberang Orchard Point.',
+        mapsUrl: 'https://www.google.com/maps/search/Emerald+Hill+Singapore'
+      },
+      'canning': {
+        title: 'Fort Canning Park & Tree Tunnel',
+        timeBadge: '🌅 PAGI HARI • 05:45 - 07:15 (SGT)',
+        category: 'Heritage Nature • Free Time Run',
+        image: 'assets/canning.jpg',
+        fallback: 'https://plus.unsplash.com/premium_photo-1697729761115-052055452e85?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Bukit bersejarah bekas istana raja Melayu abad ke-14. Spot Tree Tunnel adalah tangga spiral bawah tanah batu dengan lubang melingkar ke atas langit yang dipayungi pohon beringin raksasa dengan cahaya matahari pagi yang menembus dedaunan.',
+        photoSpot: 'Duduk di bibir dinding tangga spiral Tree Tunnel menatap ke atas siluet ranting pohon dan langit pagi.',
+        tips: 'Wajib tiba pukul 06:30 pagi! Jika siang hari, antrean turis untuk berfoto di Tree Tunnel bisa mencapai 45–60 menit.',
+        transit: 'Jalan kaki 1 km dari Hotel Chancellor via Istana Park atau MRT Fort Canning (DT20) / Dhoby Ghaut (NE6).',
+        mapsUrl: 'https://www.google.com/maps/dir/Hotel+Chancellor@Orchard/Fort+Canning+Tree+Tunnel'
+      },
+      'botanic': {
+        title: 'Singapore Botanic Gardens (UNESCO)',
+        timeBadge: '🌅 PAGI HARI • 06:00 - 08:30 (SGT)',
+        category: 'Wisata Alam & Rainforest • Free Time',
+        image: 'assets/botanic.jpg',
+        fallback: 'https://images.unsplash.com/photo-1667365922490-e2bd33351232?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Satu-satunya taman botani tropis di dunia yang dinobatkan sebagai Situs Warisan Dunia UNESCO. Berusia lebih dari 165 tahun dengan sisa hutan hujan primer asli di tengah kota, Swan Lake, dan Symphony Lake di bawah mentari pagi.',
+        photoSpot: 'The Bandstand (paviliun gazebo putih oktagonal klasik era kolonial Inggris) dikelilingi pohon-pohon peneduh dan kabut pagi tipis.',
+        tips: 'Buka mulai pukul 05:00 pagi (GRATIS). Bawa soft flask / botol minum karena banyak water tap gratis di dalam taman.',
+        transit: 'Naik Bus 7 / 106 dari seberang hotel (Halte Somerset) langsung turun di gerbang Tanglin Gate (11 menit, gratis STP).',
+        mapsUrl: 'https://www.google.com/maps/dir/Hotel+Chancellor@Orchard/Singapore+Botanic+Gardens'
+      },
+      'gardens': {
+        title: 'Gardens by the Bay & Supertree Grove',
+        timeBadge: '☀️ PAGI / SIANG • 08:00 - 11:00 (SGT)',
+        category: 'Taman Futuristik • Tour Resmi',
+        image: 'assets/gardens.jpg',
+        fallback: 'https://images.unsplash.com/photo-1508964942454-1a56651d54ac?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Taman botani futuristik seluas 101 hektar. Daya tarik utamanya adalah barisan 18 Supertree — pohon vertikal raksasa setinggi 25–50 meter yang menjulang tinggi di bawah langit biru cerah pagi Singapura.',
+        photoSpot: 'Berdiri di tengah Supertree Grove menghadap ke atas atau dari jembatan gantung OCBC Skyway.',
+        tips: 'Area luar Supertree Grove 100% GRATIS untuk dikunjungi. Tiket berbayar hanya untuk Flower Dome & Cloud Forest.',
+        transit: 'MRT Gardens by the Bay (TE22) atau Bayfront (DT16) via jembatan Dragonfly Bridge.',
+        mapsUrl: 'https://www.google.com/maps/search/Gardens+by+the+Bay+Singapore'
+      },
+      'bugis': {
+        title: 'Bugis Street Shopping District',
+        timeBadge: '☀️ SIANG HARI • 10:30 - 12:00 (SGT)',
+        category: 'Belanja & Souvenir • Tour Resmi',
+        image: 'assets/bugis.jpg',
+        fallback: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Pusat perbelanjaan jalanan beratap terbesar di Singapura dengan lebih dari 800 kios pedagang aktif di siang hari. Tempat paling populer untuk berburu oleh-oleh murah: kaos Singapura, gantungan kunci, dan snack lokal.',
+        photoSpot: 'Pintu gerbang merah neon Bugis Street di persimpangan Victoria Street.',
+        tips: 'Sediakan uang tunai SGD pecahan $2, $5, dan $10 karena beberapa kios kecil tidak menerima pembayaran kartu.',
+        transit: 'MRT Bugis (EW12/DT14) Exit C persis di seberang pintu masuk pasar.',
+        mapsUrl: 'https://www.google.com/maps/search/Bugis+Street+Singapore'
+      },
+      'sultan': {
+        title: 'Masjid Sultan & Kampong Gelam',
+        timeBadge: '☀️ SIANG (DZUHUR) • 12:00 - 13:00 (SGT)',
+        category: 'Cagar Budaya & Ibadah • Tour Resmi',
+        image: 'assets/sultan.jpg',
+        fallback: 'https://images.unsplash.com/photo-1702085241329-2525b7b71cef?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Masjid bersejarah termegah di Singapura yang dibangun pada tahun 1824 untuk Sultan Hussein Shah. Kubah emas raksasa berkilau di bawah sinar matahari siang, diapit barisan pohon palem di Bussorah Street.',
+        photoSpot: 'Bussorah Street (lorong pejalan kaki berhias pohon palem dengan kubah emas Masjid Sultan simetris di ujung jalan).',
+        tips: 'Berpakaian sopan dan tertutup untuk sholat Dzuhur. Disediakan jubah pinjaman gratis di pintu masuk jika memakai celana pendek.',
+        transit: 'MRT Bugis (DT14) atau Jalan Besar (DT22), jalan kaki 6 menit melintasi Arab Street.',
+        mapsUrl: 'https://www.google.com/maps/search/Sultan+Mosque+Singapore'
+      },
+      'mustafa': {
+        title: 'Mustafa Centre (Little India)',
+        timeBadge: '☀️ SIANG / SORE • 13:00 - 15:00 (SGT)',
+        category: 'Pusat Belanja 24 Jam • Tour Resmi',
+        image: 'assets/mustafa.jpg',
+        fallback: 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Toserba legendaris 6 lantai di Little India yang menjual aneka cokelat impor Eropa/Swiss dengan harga paling miring, parfum original diskon, elektronik, jam tangan, hingga rempah-rempah di siang hari.',
+        photoSpot: 'Persimpangan Syed Alwi Road & Serangoon Road bernuansa Little India yang semarak di siang hari.',
+        tips: 'Tas ransel besar wajib dititipkan atau disegel kabel tis oleh petugas di pintu masuk. Jaga dompet karena lorong cukup padat.',
+        transit: 'MRT Farrer Park (NE8) Exit G, jalan kaki 3 menit.',
+        mapsUrl: 'https://www.google.com/maps/search/Mustafa+Centre+Singapore'
+      },
+      'uss': {
+        title: 'Universal Studios Singapore (Globe Spot Sentosa)',
+        timeBadge: '🌇 SORE HARI • 15:00 - 17:00 (SGT)',
+        category: 'Sentosa Island • Tour Resmi',
+        image: 'assets/uss.jpg',
+        fallback: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Spot foto paling terkenal di Resorts World Sentosa berupa bola dunia raksasa bertuliskan UNIVERSAL yang terus berputar di atas kolam kabut di sore hari.',
+        photoSpot: 'Persis di depan bola dunia Universal Studios dengan tulisan UNIVERSAL menghadap lurus ke kamera.',
+        tips: 'Area bola dunia berada di LUAR gerbang tiket, jadi Anda bisa berfoto secara GRATIS tanpa membeli tiket wahana.',
+        transit: 'Dari VivoCity naik Sentosa Express ke Resorts World Station, atau jalan kaki gratis via Sentosa Boardwalk.',
+        mapsUrl: 'https://www.google.com/maps/search/Universal+Studios+Singapore+Sentosa'
+      },
+      'laupasat': {
+        title: 'Satay Street Lau Pa Sat',
+        timeBadge: '🌙 MALAM HARI • 19:30 - 23:00 (SGT)',
+        category: 'Kuliner Malam Legendaris • Free Time',
+        image: 'assets/laupasat.jpg',
+        fallback: 'https://images.unsplash.com/photo-1520841852757-e40af9b5bd12?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Mulai pukul 19:00 setiap malam, jalan Boon Tat Street ditutup khusus menjadi sentra sate bakar arang outdoor terbesar di Singapura dengan aroma bakaran harum dan suasana malam yang sangat hidup di antara gedung CBD.',
+        photoSpot: 'Di tengah meja jalanan berasap dengan latar belakang bangunan pasar Victoria Lau Pa Sat dan gedung pencakar langit malam.',
+        tips: 'Pesan paket sate campuran (ayam, sapi, udang bakar) di Stalls 7 & 8. Bawa uang tunai SGD pecahan kecil.',
+        transit: 'MRT Somerset (NSL) naik 3 stasiun ke Raffles Place (NS26) Exit I, jalan kaki 280m.',
+        mapsUrl: 'https://www.google.com/maps/search/Lau+Pa+Sat+Singapore'
+      },
+      'barrage': {
+        title: 'Marina Barrage Green Roof & Bay East',
+        timeBadge: '🌙 SENJA / MALAM • 19:00 - 22:30 (SGT)',
+        category: 'Padang Rumput Laut • Free Time Malam',
+        image: 'assets/barrage.jpg',
+        fallback: 'https://plus.unsplash.com/premium_photo-1697729420937-0ecb0ddb6e85?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Atap padang rumput hijau luas di tepi laut pada malam hari. Angin laut semilir sejuk dengan panorama spektakuler lampu-lampu Marina Bay Sands, Singapore Flyer, dan kapal-kapal tanker di selat.',
+        photoSpot: 'Ujung rumput hijau menghadap siluet gemerlap lampu malam Marina Bay Sands di seberang teluk.',
+        tips: 'Sangat cocok untuk relaksasi malam hari setelah seharian tur rombongan karena suasananya tenang dan tidak bising.',
+        transit: 'MRT Gardens by the Bay (TE22) Exit 1, jalan kaki 8 menit.',
+        mapsUrl: 'https://www.google.com/maps/search/Marina+Barrage+Singapore'
+      },
+      'ridges': {
+        title: 'The Southern Ridges & Henderson Waves',
+        timeBadge: '🌅 PAGI HARI • 06:00 - 09:30 (SGT)',
+        category: 'Canopy Trail 36m • Free Time Spektakuler',
+        image: 'assets/ridges.jpg',
+        fallback: 'https://images.unsplash.com/photo-1767948002924-bfe6fa0ad2d2?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Jembatan pejalan kaki kayu Balau kuning tertinggi di Singapura (36 meter di atas jalan) yang meliuk bergelombang membelah kanopi hutan rimbun di pagi hari dengan pemandangan bukit dan laut selatan.',
+        photoSpot: 'Lengkungan ombak kayu Henderson Waves di pagi hari dengan latar pucuk pohon hutan dan cahaya mentari terbit.',
+        tips: 'Rute trail run paling asri. Jangan membawa kantong kresek plastik terbuka agar tidak menarik perhatian monyet liar.',
+        transit: 'MRT Dhoby Ghaut (NEL) ke HarbourFront Exit D ➡️ Marang Trail. Pulang naik Bus 143 langsung ke hotel.',
+        mapsUrl: 'https://www.google.com/maps/dir/Hotel+Chancellor@Orchard/Henderson+Waves'
+      },
+      'marinabay_run': {
+        title: 'Marina Bay Waterfront & Singapore River',
+        timeBadge: '🌅 PAGI SUNRISE • 06:00 - 08:00 (SGT)',
+        category: 'Sunrise Waterfront Loop • Free Time Run',
+        image: 'assets/marinabay_run.jpg',
+        fallback: 'https://images.unsplash.com/flagged/photo-1562503542-2a1e6f03b16b?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Rute lari pagi menyusuri tepian Singapore River dari Clarke Quay, Boat Quay, Fullerton Hotel tembus ke teluk Marina Bay saat matahari terbit keemasan di balik Marina Bay Sands.',
+        photoSpot: 'Helix Bridge dek pandang menghadap ArtScience Museum dan pantulan cahaya sunrise di air teluk.',
+        tips: 'Mulai lari pukul 06:15 pagi dari hotel. Pulang bisa langsung tap kartu Tourist Pass di MRT Bayfront menuju Somerset.',
+        transit: 'Start dari lobi hotel. Pulang via MRT Bayfront (DT16) ke Somerset (10 menit).',
+        mapsUrl: 'https://www.google.com/maps/dir/Hotel+Chancellor@Orchard/Marina+Bay+Sands'
+      },
+      'smrt': {
+        title: 'SMRT Singapore Rail Transit',
+        timeBadge: '☀️ SIANG HARI • 13:00 - 14:00 (SGT)',
+        category: 'Dinas Benchmarking • KAI Services & LRT',
+        image: 'assets/smrt.jpg',
+        fallback: 'https://images.unsplash.com/photo-1627203337963-94ccdd9f8870?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Armada dan stasiun modern operator transportasi massal perkeretaapian utama Singapura. Benchmarking fokus pada adopsi standar pengelolaan fasilitas stasiun, sistem crowd control, kebersihan sarana, dan pemeliharaan armada.',
+        photoSpot: 'Peron stasiun transit bawah tanah dengan pintu peron otomatis (Platform Screen Doors) dan armada kereta MRT.',
+        tips: 'Perhatikan alur marka pejalan kaki (wayfinding signage), display informasi kedatangan kereta, dan sistem pembersihan stasiun.',
+        transit: 'Jaringan MRT SMRT (North-South Line, East-West Line, Circle Line, Thomson-East Coast Line).',
+        mapsUrl: 'https://www.google.com/maps/search/SMRT+Corporation+Singapore'
+      },
+      'jewel': {
+        title: 'Jewel Changi Airport (HSBC Rain Vortex)',
+        timeBadge: '🌇 SORE / SENJA • 14:00 - 19:00 (SGT)',
+        category: 'Transit & Kepulangan • Tour Resmi',
+        image: 'assets/jewel.jpg',
+        fallback: 'https://images.unsplash.com/photo-1708084243733-e5f55c06a299?auto=format&fit=crop&w=1200&q=80',
+        desc: 'Air terjun indoor tertinggi di dunia (40 meter) yang mengalir dari kubah kaca futuristik di tengah hutan bertingkat Shiseido Forest Valley di sore hari menjelang penerbangan kepulangan ke Jakarta.',
+        photoSpot: 'Lantai 2 view point menghadap pusat air terjun, atau dari jembatan Canopy Bridge.',
+        tips: 'Akses masuk ke Jewel GRATIS dan terhubung langsung dengan Terminal 1, 2, dan 3 Changi Airport.',
+        transit: 'MRT Changi Airport (CG2) terhubung langsung via jembatan ber-AC.',
+        mapsUrl: 'https://www.google.com/maps/search/Jewel+Changi+Airport'
+      }
+    };
+
+    let currentOpenPlaceKey = null;
+
+    function handleImageError(img) {
+      if (currentOpenPlaceKey && DESTINATION_DATA[currentOpenPlaceKey] && DESTINATION_DATA[currentOpenPlaceKey].fallback) {
+        if (img.src !== DESTINATION_DATA[currentOpenPlaceKey].fallback) {
+          img.src = DESTINATION_DATA[currentOpenPlaceKey].fallback;
+          return;
+        }
+      }
+      img.onerror = null;
+      img.src = 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1200&q=80';
+    }
+
+    function toggleModalFit(e) {
+      if (e) e.stopPropagation();
+      const img = document.getElementById('modal-img');
+      const btn = document.getElementById('modal-fit-btn');
+      if (!img) return;
+      img.classList.toggle('contain-mode');
+      if (img.classList.contains('contain-mode')) {
+        if (btn) btn.textContent = '↔ Mode Penuh (Fill)';
+      } else {
+        if (btn) btn.textContent = '↕ Mode Pas (Fit)';
+      }
+    }
+
+    function openPlaceModal(placeKey) {
+      currentOpenPlaceKey = placeKey;
+      const data = DESTINATION_DATA[placeKey];
+      if (!data) return;
+
+      const imgEl = document.getElementById('modal-img');
+      if (imgEl) {
+        imgEl.classList.remove('contain-mode');
+        imgEl.src = data.image;
+      }
+      const btnFit = document.getElementById('modal-fit-btn');
+      if (btnFit) btnFit.textContent = '↕ Mode Pas (Fit)';
+
+      document.getElementById('modal-time-badge').textContent = data.timeBadge || 'SINGAPORE';
+      document.getElementById('modal-category').textContent = data.category;
+      document.getElementById('modal-title').textContent = data.title;
+      document.getElementById('modal-desc').textContent = data.desc;
+      document.getElementById('modal-photospot').textContent = data.photoSpot;
+      document.getElementById('modal-tips').textContent = data.tips;
+      document.getElementById('modal-transit').textContent = data.transit;
+      document.getElementById('modal-maps-link').href = data.mapsUrl;
+
+      document.getElementById('place-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePlaceModal(event) {
+      if (event && event.target && event.target.id !== 'place-modal' && !event.target.classList.contains('modal-close-btn') && !(event.target.innerText && event.target.innerText.includes('Tutup'))) {
+        return;
+      }
+      const modal = document.getElementById('place-modal');
+      if (modal) modal.classList.remove('open');
+      document.body.style.overflow = '';
+      currentOpenPlaceKey = null;
+    }
+
+    // LIGHTBOX FULLSCREEN VIEWER (100% UNCROPPED VIEW)
+    function openCurrentPhotoLightbox() {
+      if (!currentOpenPlaceKey || !DESTINATION_DATA[currentOpenPlaceKey]) return;
+      const data = DESTINATION_DATA[currentOpenPlaceKey];
+      const imgEl = document.getElementById('modal-img');
+      const activeSrc = (imgEl && imgEl.currentSrc) ? imgEl.currentSrc : data.image;
+      openLightbox(activeSrc, data.title, data.timeBadge, data.photoSpot, data.mapsUrl);
+    }
+
+    function openLightbox(imgUrl, title, timeBadge, photoSpot, mapsUrl) {
+      const lb = document.getElementById('lightbox-modal');
+      const lbImg = document.getElementById('lightbox-img');
+      const lbTitle = document.getElementById('lightbox-title');
+      const lbBadge = document.getElementById('lightbox-badge');
+      const lbSpot = document.getElementById('lightbox-spot');
+      const lbMaps = document.getElementById('lightbox-maps-link');
+      const stage = document.getElementById('lightbox-stage');
+
+      if (stage) stage.classList.remove('zoomed');
+
+      lbImg.src = imgUrl;
+      lbTitle.textContent = title || '';
+      lbBadge.textContent = timeBadge || 'SINGAPORE';
+      if (lbSpot) lbSpot.innerHTML = `📍 <strong>Spot Foto:</strong> ${photoSpot || '-'}`;
+      if (lbMaps) lbMaps.href = mapsUrl || '#';
+
+      lb.classList.add('open');
+    }
+
+    function toggleLightboxZoom() {
+      const stage = document.getElementById('lightbox-stage');
+      if (stage) stage.classList.toggle('zoomed');
+    }
+
+    function closeLightbox(event) {
+      if (event && event.target && event.target.id !== 'lightbox-modal' && !event.target.classList.contains('lightbox-close-btn') && !(event.target.innerText && event.target.innerText.includes('Tutup'))) {
+        return;
+      }
+      const lb = document.getElementById('lightbox-modal');
+      if (lb) lb.classList.remove('open');
+      const stage = document.getElementById('lightbox-stage');
+      if (stage) stage.classList.remove('zoomed');
+    }
+
+    // Keyboard ESC to close modal or lightbox
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const lb = document.getElementById('lightbox-modal');
+        if (lb && lb.classList.contains('open')) {
+          closeLightbox();
+        } else {
+          closePlaceModal();
+        }
+      }
+    });
+
+    // Safe LocalStorage helpers for iOS Safari / Private Browsing / WebViews
+    function safeGetJson(key, defaultVal) {
+      try {
+        const item = localStorage.getItem(key);
+        return item ? JSON.parse(item) : (defaultVal || {});
+      } catch (e) {
+        console.warn('Storage read restricted:', e);
+        return defaultVal || {};
+      }
+    }
+
+    function safeSetJson(key, val) {
+      try {
+        localStorage.setItem(key, JSON.stringify(val));
+      } catch (e) {
+        console.warn('Storage write restricted:', e);
+      }
+    }
+
+    function safeRemoveKey(key) {
+      try {
+        localStorage.removeItem(key);
+      } catch (e) {
+        console.warn('Storage remove restricted:', e);
+      }
+    }
+
+    // Rundown Item DONE & Sorting to Bottom
+    const RUNDOWN_STORAGE_KEY = 'krisna_sg_rundown_done_v2';
+
+    function loadRundownDoneState() {
+      const saved = safeGetJson(RUNDOWN_STORAGE_KEY, {});
+      for (const cardId in saved) {
+        if (saved[cardId]) {
+          const card = document.getElementById(cardId);
+          if (card) {
+            applyCardDoneState(card, true);
+          }
+        }
+      }
+      sortAllDayCards();
+    }
+
+    function toggleRundownDone(cardId) {
+      const card = document.getElementById(cardId);
+      if (!card) return;
+
+      const saved = safeGetJson(RUNDOWN_STORAGE_KEY, {});
+      const isDone = !card.classList.contains('is-done');
+      
+      applyCardDoneState(card, isDone);
+      
+      if (isDone) {
+        saved[cardId] = true;
+        showToast('✓ Agenda ditandai selesai & dipindah ke bawah');
+      } else {
+        delete saved[cardId];
+        showToast('Agenda diaktifkan kembali');
+      }
+
+      safeSetJson(RUNDOWN_STORAGE_KEY, saved);
+      sortDayCards(card.parentElement);
+    }
+
+    function applyCardDoneState(card, isDone) {
+      const btn = card.querySelector('.btn-done-toggle');
+      if (isDone) {
+        card.classList.add('is-done');
+        if (btn) btn.textContent = '✓ Selesai';
+      } else {
+        card.classList.remove('is-done');
+        if (btn) btn.textContent = 'Selesai';
+      }
+    }
+
+    function sortDayCards(container) {
+      if (!container) return;
+      const cards = Array.from(container.children);
+      cards.sort((a, b) => {
+        const aDone = a.classList.contains('is-done') ? 1 : 0;
+        const bDone = b.classList.contains('is-done') ? 1 : 0;
+        if (aDone !== bDone) return aDone - bDone;
+        
+        const orderA = parseInt(a.getAttribute('data-order') || '0', 10);
+        const orderB = parseInt(b.getAttribute('data-order') || '0', 10);
+        return orderA - orderB;
+      });
+
+      cards.forEach(card => container.appendChild(card));
+    }
+
+    function sortAllDayCards() {
+      ['day-1-content', 'day-2-content', 'day-3-content'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) sortDayCards(el);
+      });
+    }
+
+    // Packing Checklist Storage
+    const STORAGE_KEY = 'krisna_sg_checklist_v3';
+
+    function loadChecklist() {
+      const saved = safeGetJson(STORAGE_KEY, {});
+      const checkboxes = document.querySelectorAll('#pane-packing input[type="checkbox"]');
+      let done = 0;
+
+      checkboxes.forEach(cb => {
+        const id = cb.getAttribute('data-id');
+        if (saved[id]) {
+          cb.checked = true;
+          const row = cb.closest('.check-row');
+          if (row) row.classList.add('done');
+          done++;
+        } else {
+          cb.checked = false;
+          const row = cb.closest('.check-row');
+          if (row) row.classList.remove('done');
+        }
+      });
+
+      updateMeter(done, checkboxes.length);
+    }
+
+    function toggleCheck(cb) {
+      const id = cb.getAttribute('data-id');
+      const saved = safeGetJson(STORAGE_KEY, {});
+      const row = cb.closest('.check-row');
+
+      if (cb.checked) {
+        saved[id] = true;
+        if (row) row.classList.add('done');
+        const titleEl = row ? row.querySelector('.check-title') : null;
+        showToast('Tersimpan: ' + (titleEl ? titleEl.textContent : 'Checklist'));
+      } else {
+        delete saved[id];
+        if (row) row.classList.remove('done');
+      }
+
+      safeSetJson(STORAGE_KEY, saved);
+      const all = document.querySelectorAll('#pane-packing input[type="checkbox"]');
+      const done = document.querySelectorAll('#pane-packing input[type="checkbox"]:checked').length;
+      updateMeter(done, all.length);
+    }
+
+    function updateMeter(done, total) {
+      const countEl = document.getElementById('pack-count');
+      const barEl = document.getElementById('pack-bar');
+      if (countEl) countEl.textContent = `${done} / ${total} Selesai`;
+      if (barEl && total > 0) {
+        barEl.style.width = Math.round((done / total) * 100) + '%';
+      }
+    }
+
+    function resetChecklist() {
+      if (confirm('Reset semua status centang checklist?')) {
+        safeRemoveKey(STORAGE_KEY);
+        loadChecklist();
+        showToast('Checklist direset.');
+      }
+    }
+
+    // Copy Taxi Text with Fallback for iOS
+    function copyTaxiText() {
+      const el = document.getElementById('taxi-text');
+      if (!el) return;
+      const text = el.innerText || el.textContent;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast('Alamat hotel disalin ke clipboard.');
+        }).catch(() => {
+          fallbackCopyText(text);
+        });
+      } else {
+        fallbackCopyText(text);
+      }
+    }
+
+    function fallbackCopyText(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast('Alamat hotel disalin ke clipboard.');
+      } catch (err) {
+        showToast('Gagal menyalin otomatis.');
+      }
+      document.body.removeChild(ta);
+    }
+
+    // Toast Helper
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2200);
+    }
+
+    // Init (Safe for DOMContentLoaded or already loaded state)
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', () => {
+        loadChecklist();
+        loadRundownDoneState();
+      });
+    } else {
+      loadChecklist();
+      loadRundownDoneState();
+    }
+  </script>
+</body>
+</html>

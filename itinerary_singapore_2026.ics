@@ -1,0 +1,152 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Krisna Bhakti//Singapore LRT 2026 Companion//ID
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Trip Singapore & Batam - Krisna Bhakti
+X-WR-TIMEZONE:Asia/Jakarta
+
+BEGIN:VEVENT
+UID:20261030T010000Z-kumpul-lrt@krisna
+DTSTAMP:20261028T140000Z
+DTSTART;TZID=Asia/Jakarta:20261030T010000
+DTEND;TZID=Asia/Jakarta:20261030T020000
+SUMMARY:Titik Kumpul di Kantor LRT Jabodebek
+DESCRIPTION:Kumpul bersama rombongan LRT Jabodebek & KAI Services. Pastikan KTP, Paspor asli, dan kemeja batik sudah siap!
+LOCATION:Kantor LRT Jabodebek
+STATUS:CONFIRMED
+END:VEVENT
+
+BEGIN:VEVENT
+UID:20261030T030000Z-boarding-citilink-cgk@krisna
+DTSTAMP:20261028T140000Z
+DTSTART;TZID=Asia/Jakarta:20261030T030000
+DTEND;TZID=Asia/Jakarta:20261030T051500
+SUMMARY:Boarding & Drop Bagasi Citilink (Terminal 1C)
+DESCRIPTION:Proses drop bagasi pesawat Citilink (Maks bagasi check-in 10 kg, kabin 7 kg). Pastikan powerbank ada di tas kabin.
+LOCATION:Bandara Soekarno-Hatta Terminal 1C
+STATUS:CONFIRMED
+END:VEVENT
+
+BEGIN:VEVENT
+UID:20261030T093000Z-meeting-batam-batik@krisna
+DTSTAMP:20261028T140000Z
+DTSTART;TZID=Asia/Jakarta:20261030T093000
+DTEND;TZID=Asia/Jakarta:20261030T113000
+SUMMARY:👔 Meeting Konsinyering RMU LRT Batam (WAJIB BATIK)
+DESCRIPTION:Meeting Pembahasan & Sesi Dokumentasi Resmi. DRESS CODE WAJIB: Baju Batik!
+LOCATION:Batam
+STATUS:CONFIRMED
+END:VEVENT
+
+BEGIN:VEVENT
+UID:20261030T133000Z-ferry-singapore@krisna
+DTSTAMP:20261028T140000Z
+DTSTART;TZID=Asia/Jakarta:20261030T133000
+DTEND;TZID=Asia/Singapore:20261030T150000
+SUMMARY:🚢 Ferry Batam ke Singapore & Imigrasi
+DESCRIPTION:Penyeberangan Ferry menuju Singapore dan proses imigrasi. Siapkan paspor & barcode MyICA Mobile (SG Arrival Card). PERHATIAN: Dilarang keras membawa rokok & vape ke Singapura! Waktu Singapura lebih cepat 1 jam (GMT+8).
+LOCATION:Batam Center Ferry Terminal
+STATUS:CONFIRMED
+END:VEVENT
+
+BEGIN:VEVENT
+UID:20261030T150000Z-tour-merlion-mbs@krisna
+DTSTAMP:20261028T140000Z
+DTSTART;TZID=Asia/Singapore:20261030T150000
+DTEND;TZID=Asia/Singapore:20261030T200000
+SUMMARY:Tour Merlion Park & Spectra Light Show MBS
+DESCRIPTION:Tur ikonik ke patung Merlion, makan malam, dan menonton pertunjukan air mancur & cahaya Spectra di Marina Bay Sands.
+LOCATION:Merlion Park & Marina Bay Sands
+STATUS:CONFIRMED
+END:VEVENT
+
+BEGIN:VEVENT
+UID:20261030T200000Z-checkin-chancellor@krisna
+DTSTAMP:20261028T140000Z
+DTSTART;TZID=Asia/Singapore:20261030T200000
+DTEND;TZID=Asia/Singapore:20261030T203000
+SUMMARY:🏨 Check In Hotel Chancellor@Orchard
+DESCRIPTION:Check-in di Hotel Chancellor@Orchard (28 Cavenagh Rd, dekat MRT Somerset). Istirahat sejenak atau jalan malam ke Emerald Hill & Don Don Donki.
+LOCATION:Hotel Chancellor@Orchard, 28 Cavenagh Rd, Singapore 229635
+STATUS:CONFIRMED
+END:VEVENT
+
+BEGIN:VEVENT
+UID:20261031T054500Z-morning-run-canning@krisna
+DTSTAMP:20261028T140000Z
+DTSTART;TZID=Asia/Singapore:20261031T054500
+DTEND;TZID=Asia/Singapore:20261031T071500
+SUMMARY:🏃 Morning Nature Run: Fort Canning Park (5 km)
+DESCRIPTION:Lari pagi menyusuri Istana Park dan rimbunnya Fort Canning Park. Kunjungi Fort Canning Tree Tunnel mumpung belum antre wisatawan!
+LOCATION:Fort Canning Park, Singapore
+STATUS:CONFIRMED
+END:VEVENT
+
+BEGIN:VEVENT
+UID:20261031T080000Z-tour-gardens-bugis-mustafa-uss@krisna
+DTSTAMP:20261028T140000Z
+DTSTART;TZID=Asia/Singapore:20261031T080000
+DTEND;TZID=Asia/Singapore:20261031T170000
+SUMMARY:🚌 Tour Rombongan: Gardens by the Bay, Bugis, Mustafa & USS
+DESCRIPTION:Agenda resmi rombongan: Gardens by the Bay, Bugis Street, Sholat Dzuhur di Masjid Sultan, belanja oleh-oleh di Mustafa Centre, dan foto spot Universal Studios Singapore.
+LOCATION:Singapore
+STATUS:CONFIRMED
+END:VEVENT
+
+BEGIN:VEVENT
+UID:20261031T190000Z-free-satay-laupasat@krisna
+DTSTAMP:20261028T140000Z
+DTSTART;TZID=Asia/Singapore:20261031T190000
+DTEND;TZID=Asia/Singapore:20261031T223000
+SUMMARY:🍢 Free Time: Wisata Kuliner Satay Street Lau Pa Sat / Clarke Quay
+DESCRIPTION:Waktu bebas malam! Naik MRT gratis dengan Tourist Pass ke Lau Pa Sat untuk makan sate bakar outdoor atau nongkrong di tepi Singapore River (Clarke Quay).
+LOCATION:Lau Pa Sat / Clarke Quay, Singapore
+STATUS:CONFIRMED
+END:VEVENT
+
+BEGIN:VEVENT
+UID:20261101T060000Z-golden-nature-run@krisna
+DTSTAMP:20261028T140000Z
+DTSTART;TZID=Asia/Singapore:20261101T060000
+DTEND;TZID=Asia/Singapore:20261101T083000
+SUMMARY:🌿 Golden Time Run: Southern Ridges / Botanic Gardens
+DESCRIPTION:Waktu bebas 5 jam (06:00-11:00)! Lari pagi & jelajah alam di Henderson Waves (jembatan kanopi hutan 36m) atau Singapore Botanic Gardens Rainforest. Naik MRT/Bus gratis dengan Singapore Tourist Pass!
+LOCATION:The Southern Ridges / Singapore Botanic Gardens
+STATUS:CONFIRMED
+END:VEVENT
+
+BEGIN:VEVENT
+UID:20261101T110000Z-checkout-hotel@krisna
+DTSTAMP:20261028T140000Z
+DTSTART;TZID=Asia/Singapore:20261101T110000
+DTEND;TZID=Asia/Singapore:20261101T120000
+SUMMARY:🧳 Check Out Hotel Chancellor@Orchard
+DESCRIPTION:Bawa seluruh koper dan barang bawaan. Pastikan berat bagasi check-in maksimal 10 kg dan bagasi kabin 7 kg.
+LOCATION:Hotel Chancellor@Orchard
+STATUS:CONFIRMED
+END:VEVENT
+
+BEGIN:VEVENT
+UID:20261101T130000Z-benchmark-smrt@krisna
+DTSTAMP:20261028T140000Z
+DTSTART;TZID=Asia/Singapore:20261101T130000
+DTEND;TZID=Asia/Singapore:20261101T140000
+SUMMARY:🚆 Benchmarking ke SMRT Singapore
+DESCRIPTION:Agenda utama dinas: Mempelajari best practices stasiun SMRT, crowd control, ketepatan waktu, dan standar kebersihan sarana/prasarana perkeretaapian.
+LOCATION:Stasiun SMRT Singapore
+STATUS:CONFIRMED
+END:VEVENT
+
+BEGIN:VEVENT
+UID:20261101T140000Z-jewel-changi-flight@krisna
+DTSTAMP:20261028T140000Z
+DTSTART;TZID=Asia/Singapore:20261101T140000
+DTEND;TZID=Asia/Singapore:20261101T210000
+SUMMARY:✈️ City Tour & Jewel Changi Airport
+DESCRIPTION:Kunjungan ke Jewel Changi (air terjun indoor Rain Vortex), makan malam, dan proses boarding penerbangan Citilink menuju Jakarta jam 21:00.
+LOCATION:Jewel Changi Airport, Singapore
+STATUS:CONFIRMED
+END:VEVENT
+
+END:VCALENDAR
